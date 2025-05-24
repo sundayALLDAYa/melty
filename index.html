@@ -103,32 +103,26 @@
             animation: fadeIn 0.6s ease forwards;
         }
 
-         #hero {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 2rem;
-        margin-top: 60px; /* Adjust based on your nav height */
-    }
-
-    .dominant-heading {
-        font-size: 4.5rem;
-        font-weight: 800;
+          .dominant-statement {
+        padding: 4rem 2rem 2rem;
+        margin-top: 80px; /* Creates space below fixed nav */
         text-align: center;
-        text-transform: uppercase;
-        letter-spacing: -2px;
-        line-height: 1;
-        max-width: 1200px;
-        margin: 0 auto;
-        color: #2c2c2c;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        animation: textEntrance 0.8s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
-        opacity: 0;
-        transform: translateY(20px);
     }
 
-    @keyframes textEntrance {
+    .dominant-statement h1 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        line-height: 1.1;
+        color: #1a1a1a;
+        margin: 0 auto;
+        max-width: 900px;
+        letter-spacing: -1.5px;
+        transform: translateY(20px);
+        animation: textSlideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        opacity: 0;
+    }
+
+    @keyframes textSlideUp {
         to {
             opacity: 1;
             transform: translateY(0);
@@ -136,15 +130,20 @@
     }
 
     @media (max-width: 768px) {
-        .dominant-heading {
-            font-size: 3rem;
+        .dominant-statement {
+            padding: 3rem 1.5rem 1.5rem;
+            margin-top: 60px;
+        }
+        
+        .dominant-statement h1 {
+            font-size: 2.5rem;
             letter-spacing: -1px;
         }
     }
 
     @media (max-width: 480px) {
-        .dominant-heading {
-            font-size: 2.5rem;
+        .dominant-statement h1 {
+            font-size: 2rem;
         }
     }
     </style>
@@ -164,8 +163,8 @@
         </div>
     </nav>
 
-    <section id="hero">
-    <h1 class="dominant-heading">I always have better things to do</h1>
+    <section class="dominant-statement">
+    <h1>I always have better things to do</h1>
 </section>
 
     <section id="home">Home Content</section>
