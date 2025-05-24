@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Goddess Site</title>
+    <title>Divine Sovereignty</title>
     <style>
         * {
             margin: 0;
@@ -15,8 +15,10 @@
         body {
             background-color: #f5f5f5;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
+        /* Navigation */
         nav {
             position: fixed;
             top: 0;
@@ -65,8 +67,220 @@
             width: 100%;
         }
 
-        .nav-links a:hover {
-            transform: translateY(-2px);
+        /* Dominant Statement */
+        .dominant-statement {
+            text-align: center;
+            padding: 100px 2rem 0;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .dominant-statement h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1;
+            color: #1a1a1a;
+            margin: 0 auto;
+            letter-spacing: -1.5px;
+            animation: textFadeIn 0.6s ease forwards;
+            opacity: 0;
+            max-width: 1200px;
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .section-content {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            width: 100%;
+        }
+
+        .image-container {
+            flex: 0 0 40%;
+            position: relative;
+            aspect-ratio: 1/2;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .text-content {
+            flex: 1;
+            text-align: center;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Content Styling */
+        .highlight {
+            color: #8b4513;
+            font-weight: 600;
+        }
+
+        .emphasized {
+            font-size: 1.1em;
+            border-left: 3px solid gold;
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .section-content ul {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .section-content li {
+            margin: 1rem 0;
+            padding-left: 2rem;
+            position: relative;
+            text-align: left;
+        }
+
+        .section-content li::before {
+            content: "✦";
+            position: absolute;
+            left: 0;
+            color: #8b4513;
+            font-weight: bold;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #2c2c2c;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin: 1.5rem 0;
+            color: #444;
+        }
+
+        /* Alternating Layout */
+        section:nth-child(odd) .section-content {
+            flex-direction: row;
+        }
+
+        section:nth-child(even) .section-content {
+            flex-direction: row-reverse;
+        }
+
+        /* Worship Section Tiers */
+        .tiers {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .tier {
+            background: rgba(255, 215, 0, 0.05);
+            border: 1px solid rgba(139, 69, 19, 0.15);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .tier h4 {
+            color: #8b4513;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .tier ul {
+            margin: 0.5rem 0;
+        }
+
+        .tier li {
+            font-size: 0.9rem;
+            padding-left: 1rem;
+        }
+
+        .tier li::before {
+            content: "•";
+            color: #8b4513;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(255, 255, 255, 0.95);
+            border-top: 1px solid rgba(0,0,0,0.1);
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-nav .nav-links {
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-nav a {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .footer-nav a:hover {
+            color: #8b4513;
+        }
+
+        .copyright {
+            text-align: center;
+            font-size: 0.8em;
+            color: #888;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes textFadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .section-content {
+                flex-direction: column!important;
+                gap: 2rem;
+                padding: 0 1.5rem;
+            }
+            
+            .image-container {
+                width: 80%;
+                max-width: 500px;
+            }
+
+            .dominant-statement h1 {
+                font-size: 2.5rem;
+            }
+
+            .tiers {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 768px) {
@@ -82,108 +296,249 @@
             .nav-links a {
                 font-size: 0.9rem;
             }
+
+            .dominant-statement {
+                padding: 80px 1.5rem 0;
+            }
+
+            .dominant-statement h1 {
+                font-size: 2rem;
+                line-height: 1.2;
+            }
+
+            .image-container {
+                width: 100%;
+            }
+
+            section {
+                padding: 4rem 0;
+                min-height: auto;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .footer-nav .nav-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.8rem;
+            }
+            
+            footer {
+                padding: 1.5rem 0;
+            }
         }
 
-        /* Simple fade-in animation for sections */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @media (max-width: 480px) {
+            .dominant-statement h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-content {
+                padding: 0 1rem;
+            }
+            
+            .text-content {
+                padding: 1rem;
+            }
         }
-
-        section {
-            padding: 6rem 2rem;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            animation: fadeIn 0.6s ease forwards;
-        }
-
-         .dominant-statement {
-        margin-top: 20px; /* Reduced space above text */
-        padding: 0 2rem;
-    }
-
-    .statement-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 1rem 0;
-    }
-
-    .dominant-statement h1 {
-        font-size: 3rem;
-        font-weight: 800;
-        line-height: 1;
-        color: #1a1a1a;
-        margin: 0;
-        letter-spacing: -1.5px;
-        animation: textFadeIn 0.6s ease forwards;
-        opacity: 0;
-        padding: 0.5rem 0;
-    }
-
-    @keyframes textFadeIn {
-        to {
-            opacity: 1;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .dominant-statement {
-            padding: 0 1.5rem;
-            margin-top: 15px;
-        }
-        
-        .dominant-statement h1 {
-            font-size: 2rem;
-            letter-spacing: -1px;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .dominant-statement {
-            padding: 0 1rem;
-        }
-        
-        .dominant-statement h1 {
-            font-size: 1.8rem;
-            line-height: 1.1;
-        }
-    }
     </style>
 </head>
 <body>
     <nav>
         <div class="nav-wrapper">
             <ul class="nav-links">
-                <li><a href="#home">Menu</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#kinks">Kinks & Fetishes</a></li>
-                <li><a href="#pay">Pay Me</a></li>
-                <li><a href="#worship">Worship Me</a></li>
+                <li><a href="#expectations">Expectations</a></li>
+                <li><a href="#booking">Booking</a></li>
                 <li><a href="#services">Services</a></li>
-                <li><a href="#diaries">Goddess Diaries</a></li>
+                <li><a href="#worship">Worship</a></li>
+                <li><a href="#diaries">Diaries</a></li>
             </ul>
         </div>
     </nav>
 
-   
-    <h1 class="dominant-statement">I always have better things to do</h1>
+    <div class="dominant-statement">
+        <h1>I always have better things to do</h1>
+    </div>
+
+    <!-- Expectations -->
+    <section id="expectations">
+        <div class="section-content">
+            <div class="image-container">
+                <img src="https://picsum.photos/600/1200?random=1" alt="Divine expectations">
+            </div>
+            <div class="text-content">
+                <h2>EXPECTATIONS</h2>
+                <p class="emphasized">Booking a session with Me is a treasured experience, reserved for those who can appreciate the art of kinky sophistication.</p>
+                <p>I approach each encounter with <strong class="highlight">attention to detail</strong> and <strong class="highlight">unwavering professionalism</strong>. To be granted the privilege to serve, I expect the same.</p>
+                <p class="emphasized">Failure to comply or display any disrespect will result in immediate exile from Paradise.</p>
+                <h3>Cardinal Rules of Paradise:</h3>
+                <ul>
+                    <li>You may only address Me as <span class="highlight">Mistress</span>, <span class="highlight">Goddess</span>, or <span class="highlight">Temptress</span></li>
+                    <li>Permission must be granted for <em>Mommy</em> or <em>Daddy</em></li>
+                    <li>Only servants who reach <span class="highlight">whale status</span> may address Me as <em>Princess</em></li>
+                    <li><strong>ALWAYS</strong> capitalize My honorific</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking -->
+    <section id="booking">
+        <div class="section-content">
+            <div class="image-container">
+                <img src="https://picsum.photos/600/1200?random=2" alt="Booking protocols">
+            </div>
+            <div class="text-content">
+                <h2>SESSION BOOKING</h2>
+                <p>I offer <span class="highlight">in-person</span>, <span class="highlight">virtual</span>, and <span class="highlight">FMTY</span> servitude opportunities.</p>
+                
+                <h3>Requirements:</h3>
+                <ul>
+                    <li>Clear photo of non-expired government ID</li>
+                    <li>30% non-refundable deposit</li>
+                    <li>First-class travel for FMTY</li>
+                </ul>
+
+                <h3>Locations:</h3>
+                <ul>
+                    <li>Primary: DC/MD/VA tri-state</li>
+                    <li>Regular travel: PA & NC</li>
+                    <li class="highlight">5-star accommodation required</li>
+                </ul>
+
+                <p class="emphasized">NO exceptions to these protocols</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services">
+        <div class="section-content">
+            <div class="image-container">
+                <img src="https://picsum.photos/600/1200?random=3" alt="Service offerings">
+            </div>
+            <div class="text-content">
+                <h2>SERVICES</h2>
+                
+                <h3>Financial Domination</h3>
+                <ul>
+                    <li>RT Game: <span class="highlight">$25 deposit</span></li>
+                    <li>Wallet Drain: <span class="highlight">$250+</span></li>
+                    <li>Debt Contracts: <span class="highlight">$5k+</span></li>
+                </ul>
+
+                <h3>Female Domination</h3>
+                <ul>
+                    <li>Virtual sessions</li>
+                    <li>In-person: <span class="highlight">$475+/hr</span></li>
+                    <li>FMTY: <span class="highlight">$3k base</span></li>
+                </ul>
+
+                <h3>Lifestyle BDSM</h3>
+                <ul>
+                    <li>For proven devotees</li>
+                    <li>Requires ongoing tribute</li>
+                    <li class="highlight">All privileges remain tribute-based</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Worship -->
+    <section id="worship">
+        <div class="section-content">
+            <div class="image-container">
+                <img src="https://picsum.photos/600/1200?random=4" alt="Worship protocols">
+            </div>
+            <div class="text-content">
+                <h2>WORSHIP ME</h2>
+                <p class="emphasized">True devotion requires consistent demonstration of your commitment to My glory.</p>
+
+                <h3>Financial Tribute Methods</h3>
+                <ul>
+                    <li><span class="highlight">Cryptocurrency:</span> BTC/ETH/LTC</li>
+                    <li><span class="highlight">Cash Apps:</span> Venmo/CashApp/Wishtender</li>
+                    <li><span class="highlight">Gift Cards:</span> Amazon/Sephora/Luxury Retailers</li>
+                    <li class="highlight">All tributes must include 15% service fee</li>
+                </ul>
+
+                <h3>Devotion Tiers</h3>
+                <div class="tiers">
+                    <div class="tier">
+                        <h4>Bronze Supplicant</h4>
+                        <p>$500/month minimum</p>
+                        <ul>
+                            <li>Basic acknowledgment</li>
+                            <li>Weekly check-ins</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tier">
+                        <h4>Silver Vassal</h4>
+                        <p>$2,500/month minimum</p>
+                        <ul>
+                            <li>Priority messaging</li>
+                            <li>Monthly audio gift</li>
+                        </ul>
+                    </div>
+
+                    <div class="tier">
+                        <h4>Golden Devotee</h4>
+                        <p>$5,000/month minimum</p>
+                        <ul>
+                            <li>Bi-weekly video updates</li>
+                            <li>Exclusive content access</li>
+                        </ul>
+                    </div>
+
+                    <div class="tier">
+                        <h4>Whale Consort</h4>
+                        <p>$10,000+/month</p>
+                        <ul>
+                            <li>24/7 communication access</li>
+                            <li>Custom experience design</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Daily Devotion Protocols</h3>
+                <ul>
+                    <li>Morning affirmation messages</li>
+                    <li>Midday financial offering</li>
+                    <li>Nightly tribute verification</li>
+                    <li class="highlight">Missed devotions incur 25% penalty</li>
+                </ul>
+            </div>
+        </div>
+    </section>
 
 
-    <section id="home">Home Content</section>
-    <section id="about">About Content</section>
-    <section id="kinks">Kinks Content</section>
-    <section id="pay">Pay Me Content</section>
-    <section id="worship">Worship Content</section>
-    <section id="services">Services Content</section>
-    <section id="diaries">Diaries Content</section>
+
+    <!-- Footer -->
+    <footer>
+    <nav class="footer-nav">
+        <div class="nav-wrapper">
+            <ul class="nav-links">
+                <li><a href="#expectations">Expectations</a></li>
+                <li><a href="#booking">Booking</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#worship">Worship</a></li>
+                <li><a href="#diaries">Diaries</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="copyright">
+        <p>© 2024 Divine Sovereignty. All tributes final. Unauthorized worship prohibited.</p>
+    </div>
+</footer>
+
 
     <script>
-        // Smooth scroll for anchor links
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
@@ -191,7 +546,23 @@
             });
         });
 
-        // Add active class to current section in view
+        // Section animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            observer.observe(section);
+        });
+
+        // Active nav links
         window.addEventListener('scroll', () => {
             const sections = document.querySelectorAll('section');
             const navLinks = document.querySelectorAll('.nav-links a');
@@ -199,18 +570,16 @@
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.clientHeight;
-                if (window.scrollY >= sectionTop - sectionHeight * 0.25) {
+                if(window.scrollY >= sectionTop - sectionHeight * 0.25) {
                     navLinks.forEach(link => {
                         link.classList.remove('active');
-                        if (section.getAttribute('id') === link.getAttribute('href').substring(1)) {
+                        if(`#${section.id}` === link.getAttribute('href')) {
                             link.classList.add('active');
                         }
                     });
                 }
             });
         });
-
-        // Mobile menu toggle (you can add a hamburger menu icon if needed)
-        </script>
+    </script>
 </body>
 </html>
