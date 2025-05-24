@@ -3,110 +3,106 @@ body {
     margin: 0;
     padding: 0;
     line-height: 1.6;
+    color: #333;
 }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #333;
-    color: #fff;
-    padding: 1rem;
+.header {
+    background: #f4f4f4;
+    padding: 10px 20px;
 }
 
-header .logo {
-    font-size: 1.5rem;
-}
-
-header nav ul {
+.navbar {
     list-style: none;
     display: flex;
-    margin: 0;
+    justify-content: center;
     padding: 0;
+    margin: 0;
 }
 
-header nav ul li {
-    margin-left: 1rem;
+.navbar li {
+    margin: 0 15px;
 }
 
-header nav ul li a {
-    color: #fff;
+.navbar a {
     text-decoration: none;
+    color: #333;
+    font-weight: bold;
 }
 
 .hero {
     text-align: center;
-    padding: 2rem;
-    background: #f4f4f4;
+    background: #ddd;
+    padding: 50px 20px;
 }
 
-.expectations, .booking, .services {
-    display: flex;
-    align-items: center;
-    padding: 2rem;
-    gap: 2rem;
+.hero h1 {
+    font-size: 2.5em;
+    margin: 0;
 }
 
-.expectations img, .booking .images img {
-    max-width: 100%;
-    border-radius: 10px;
+.content-section {
+    max-width: 800px;
+    margin: 20px auto;
+    text-align: center;
+    padding: 20px;
 }
 
-.booking .images {
-    display: flex;
-    gap: 1rem;
-}
-
-.service-list {
-    display: flex;
-    gap: 2rem;
-}
-
-.upcoming-sessions {
-    padding: 2rem;
-}
-
-.upcoming-sessions table {
+.content-section img {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
+    height: auto;
 }
 
-.upcoming-sessions table th, .upcoming-sessions table td {
+.content-grid {
+    display: flex;
+    gap: 20px;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.services ul, .sessions ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+.sessions ul li, .services ul li {
+    background: #f9f9f9;
+    padding: 10px;
+    margin: 10px 0;
     border: 1px solid #ddd;
-    padding: 0.5rem;
-    text-align: left;
+    border-radius: 5px;
 }
 
 .booking-request {
-    padding: 2rem;
-    background: #f4f4f4;
+    max-width: 800px;
+    margin: 20px auto;
+    text-align: center;
 }
 
 .booking-request form {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    align-items: center;
+}
+
+.booking-request form label {
+    margin-top: 10px;
 }
 
 .booking-request form input, .booking-request form textarea {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
+    width: 100%;
+    max-width: 500px;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
     border-radius: 5px;
-}
-
-.booking-request form button {
-    padding: 0.5rem 1rem;
-    border: none;
-    background: #333;
-    color: #fff;
-    border-radius: 5px;
-    cursor: pointer;
 }
 
 footer {
     text-align: center;
-    padding: 1rem;
     background: #333;
     color: #fff;
+    padding: 20px 10px;
+    margin-top: 20px;
 }
