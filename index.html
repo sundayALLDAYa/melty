@@ -3,94 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recreated Site</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Modern Goddess Site</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            line-height: 1.6;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .nav-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #333;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::before {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-2px);
+        }
+
+        section {
+            padding: 6rem 2rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+            
+            .nav-wrapper {
+                padding: 0.5rem 1rem;
+            }
+            
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Simple fade-in animation for sections */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        section {
+            animation: fadeIn 0.6s ease forwards;
+        }
+    </style>
 </head>
 <body>
-    <header class="header">
-        <nav>
-            <ul class="navbar">
-                <li><a href="#">Menu</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Kinks & Fetishes</a></li>
-                <li><a href="#">Pay Me</a></li>
-                <li><a href="#">Worship Me</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Goddess Diaries</a></li>
+    <nav>
+        <div class="nav-wrapper">
+            <ul class="nav-links">
+                <li><a href="#home">Menu</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#kinks">Kinks & Fetishes</a></li>
+                <li><a href="#pay">Pay Me</a></li>
+                <li><a href="#worship">Worship Me</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#diaries">Goddess Diaries</a></li>
             </ul>
-        </nav>
-    </header>
+        </div>
+    </nav>
 
-    <main>
-        <section class="hero">
-            <h1>Always Have Better Things To Do</h1>
-        </section>
+    <section id="home">Home Content</section>
+    <section id="about">About Content</section>
+    <section id="kinks">Kinks Content</section>
+    <section id="pay">Pay Me Content</section>
+    <section id="worship">Worship Content</section>
+    <section id="services">Services Content</section>
+    <section id="diaries">Diaries Content</section>
 
-        <section class="content-section">
-            <img src="https://picsum.photos/600/400" alt="Placeholder image">
-            <h2>Expectations</h2>
-            <p>Meeting your goddess comes with strict requirements. It is for those who can withstand the challenge of obedience, respect, and adoration that I offer. My time is sacred and so are my expectations. You should arrive with a clear mind and open heart to receive my commands.</p>
-            <p>Respect is mandatory. A tribute of $100 is required before we even meet. Without this, my time remains my own.</p>
-        </section>
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
 
-        <section class="session-booking">
-            <h2>Session Booking</h2>
-            <div class="content-grid">
-                <p>
-                    I am both your fantasy and your reality, but my time is expensive. If you would like to request a session, you must understand the following rules:
-                </p>
-                <ul>
-                    <li>Tribute is mandatory and non-refundable.</li>
-                    <li>Sessions are only booked once the form below is completed and the tribute is received.</li>
-                    <li>Be respectful and honest in your communication.</li>
-                </ul>
-                <img src="https://picsum.photos/300/400" alt="Placeholder image">
-                <img src="https://picsum.photos/300/400" alt="Placeholder image">
-            </div>
-        </section>
+        // Add active class to current section in view
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= sectionTop - sectionHeight * 0.25) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (section.getAttribute('id') === link.getAttribute('href').substring(1)) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
 
-        <section class="services">
-            <h2>Services</h2>
-            <ul>
-                <li>Financial Domination - Tribute Required</li>
-                <li>Full Control Sessions</li>
-                <li>Custom Scenes</li>
-                <li>Virtual Domination - Available for remote sessions</li>
-            </ul>
-        </section>
-
-        <section class="sessions">
-            <h2>Upcoming Sessions</h2>
-            <ul>
-                <li>05/27/2025 - Atlanta Exclusive Sessions (11 AM - 9 PM)</li>
-                <li>05/29/2025 - Baltimore Exclusive Sessions (9 AM - 4 PM)</li>
-                <li>06/01/2025 - Seattle Exclusive Sessions (11 AM - 7 PM)</li>
-            </ul>
-        </section>
-
-        <section class="booking-request">
-            <h2>Booking Request</h2>
-            <form>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email">
-                <label for="date">Preferred Date:</label>
-                <input type="date" id="date" name="date">
-                <label for="message">Special Requests:</label>
-                <textarea id="message" name="message"></textarea>
-                <button type="submit">Submit</button>
-            </form>
-        </section>
-
-        <footer>
-            <p>Indulge in Paradise</p>
-            <p>Subscribe to my updates on upcoming sessions.</p>
-            <form>
-                <input type="email" placeholder="Your email">
-                <button type="submit">Subscribe</button>
-            </form>
-        </footer>
-    </main>
+        // Mobile menu toggle (you can add a hamburger menu icon if needed)
+        </script>
 </body>
 </html>
