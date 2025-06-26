@@ -7,480 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary-red: #E74C3C;
-            --light-red-accent: #EC7063;
-            --brightest-red-accent: #F1948A;
-            --darker-muted-red: #A93226;
-            --text-light: #e0e0e0;
-            --text-heading-light: #f5f5f5;
-            --background-dark: #1a1a1a;
-            --background-nav: rgba(20, 20, 20, 0.85);
-            --background-tier: rgba(231, 76, 60, 0.03);
-            --border-tier: rgba(231, 76, 60, 0.2);
-            --shadow-tier-hover: rgba(231, 76, 60, 0.1);
-        }
-
-        body {
-            background-color: var(--background-dark);
-            color: var(--text-light);
-            font-family: 'Lato', sans-serif;
-            line-height: 1.7;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: var(--background-nav);
-            backdrop-filter: blur(12px);
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-        }
-
-        .nav-wrapper {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-top: 1rem;
-            padding-bottom: 0.5rem;
-        }
-
-        .nav-links {
-            display: flex;
-            justify-content: center;
-            gap: 2.5rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--light-red-accent);
-            font-family: 'Playfair Display', serif;
-            font-weight: 500;
-            font-size: 1.1em;
-            position: relative;
-            padding: 0.5rem 0;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            opacity: 0.7; /* Make it dimmer */
-        }
-
-        .nav-links a::before {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2.5px;
-            background: var(--brightest-red-accent);
-            transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            border-radius: 1px;
-        }
-        .nav-links a:hover { 
-            color: var(--primary-red); /* Brighter RED on hover */
-            opacity: 1; /* Full opacity on hover */
-        }
-        .nav-links a:hover::before,
-        .nav-links a.active::before { width: 100%; }
-        .nav-links a.active { 
-            color: var(--primary-red); /* Brighter RED for active link */
-            opacity: 1; /* Full opacity for active link */
-            text-shadow: 0 0 8px var(--brightest-red-accent); /* Glow effect for active link */
-        }
-
-        /* Dominant Statement */
-        .dominant-statement {
-            text-align: center;
-            padding: 120px 2rem 40px;
-            width: 100%;
-            margin: 0 auto;
-        }
-
-        .dominant-statement h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 4.5rem;
-            font-weight: 700;
-            line-height: 1.2;
-            color: var(--primary-red);
-            margin: 0 auto;
-            letter-spacing: 0px;
-            animation: textFadeIn 1s ease 0.2s forwards;
-            opacity: 0;
-            max-width: 1200px;
-            text-shadow: 0 0 10px rgba(231, 76, 60, 0.5), 0 0 20px rgba(231, 76, 60, 0.3);
-        }
-
-        /* Main Content */
-        .notice-container {
-            max-width: 1200px; /* Adjusted for wider layout potential */
-            margin: 4rem auto;
-            padding: 0 2rem;
-        }
-
-        .notice-section {
-            padding: 5rem 0; /* Consistent section padding */
-            animation: fadeIn 0.8s ease forwards;
-            opacity: 0;
-            transform: translateY(30px);
-            margin-bottom: 0; /* Removed default margin as padding handles spacing */
-        }
-        .notice-section:last-of-type {
-             margin-bottom: 3rem; /* Add some margin to the very last section if needed */
-        }
-
-
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 5rem; /* Matched DS */
-            margin-bottom: 3rem;
-            width:100%;
-        }
-        /* Alternating layout for section headers */
-        .notice-section:nth-of-type(even) .section-header {
-            flex-direction: row-reverse;
-        }
-
-
-        .section-image {
-            flex: 0 0 40%; /* Matched DS */
-            position: relative;
-            aspect-ratio: 3/4; /* Matched DS */
-            border-radius: 20px; /* Matched DS */
-            overflow: hidden;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5); /* Matched DS */
-        }
-
-        .section-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.5s ease; /* Matched DS */
-        }
-        .section-image:hover img {
-            transform: scale(1.05); /* Matched DS */
-        }
-
-        .section-text {
-            flex: 1;
-            text-align: left; /* Default to left, can be centered if content demands */
-        }
-        .section-text p {
-            font-size: 1.05em;
-        }
-
-
-        /* Tribute Grid & Payment Methods (Card styling) */
-        .tribute-grid, .payment-methods {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem; /* Increased top margin */
-        }
-
-        .tribute-card, .method-card {
-            background: var(--background-tier);
-            border: 1px solid var(--border-tier);
-            padding: 2rem; /* Standardized padding */
-            border-radius: 12px; /* Matched DS */
-            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Matched DS */
-        }
-
-        .tribute-card:hover, .method-card:hover {
-            transform: translateY(-5px); /* Matched DS */
-            box-shadow: 0 10px 20px var(--shadow-tier-hover); /* Matched DS */
-        }
-
-        .tribute-card h3, .method-card h3, .method-card h4 { /* h4 in method-card acts like h3 */
-            font-family: 'Playfair Display', serif;
-            color: var(--light-red-accent);
-            margin-bottom: 1.5rem;
-            font-size: 1.8rem; /* Matched DS H3 */
-            border-bottom: 1px solid var(--border-tier);
-            padding-bottom: 0.75rem;
-            font-weight: 600; /* From DS */
-        }
-        .method-card h4 { /* Specific override if needed from 1.8rem */
-            font-size: 1.6rem; /* Slightly smaller for H4 if distinction is desired */
-        }
-
-
-        .tribute-item {
-            margin-bottom: 1rem;
-            padding-left: 2.5rem; /* Adjusted for new icon */
-            position: relative;
-            font-size: 1.05em; /* Matched DS li */
-            color: var(--text-light);
-        }
-
-        .tribute-item::before {
-            content: "⚜"; /* Changed icon */
-            position: absolute;
-            left: 0;
-            top: -2px; /* Matched DS li */
-            color: var(--primary-red);
-            font-size: 1.5em; /* Matched DS li */
-        }
-
-        .method-card a {
-            color: var(--light-red-accent); /* Themed link color */
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .method-card a:hover {
-            color: var(--brightest-red-accent); /* Brighter hover for links within cards */
-            text-decoration: underline;
-        }
-
-        .giftcard-list {
-            columns: 2;
-            margin-top: 1rem;
-            list-style: none; /* Ensure tribute-item styling takes over */
-            padding-left: 0;
-        }
-        .giftcard-list .tribute-item { /* Specificity for gift card list items */
-            font-size: 1em; /* Can adjust if they need to be smaller */
-        }
-
-
-        /* Content Styling */
-        .highlight {
-            color: var(--primary-red);
-            font-weight: 600;
-            text-shadow: 0 0 5px rgba(231, 76, 60, 0.3); /* Matched DS */
-        }
-
-        .emphasized { /* Matched DS */
-            font-size: 1.15em;
-            font-style: italic;
-            border-left: 4px solid var(--primary-red);
-            padding-left: 1.5rem;
-            margin: 2rem 0;
-            color: #f0e0e0;
-        }
-
-        h2 { /* Matched DS */
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            margin-bottom: 2.5rem;
-            color: var(--text-heading-light);
-            font-weight: 700;
-            text-shadow: 0 0 8px rgba(0,0,0,0.3);
-        }
-
-        p {
-            margin-bottom: 1.2rem;
-            color: var(--text-light);
-        }
-
-        /* Footer */
-        footer { /* Matched DS */
-            background: rgba(20, 20, 20, 0.9);
-            border-top: 1px solid var(--border-tier);
-            padding: 3rem 0 2rem 0;
-            margin-top: 5rem;
-            text-align: center; /* Center align footer content */
-        }
-
-        .footer-nav { /* Style for the new footer navigation */
-            list-style: none;
-            padding: 0;
-            margin: 0 0 1.5rem 0; /* Add some margin below the nav */
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem; /* Adjust gap as needed */
-        }
-
-        .footer-nav li a {
-            color: var(--light-red-accent); /* Use a consistent link color */
-            text-decoration: none;
-            font-family: 'Playfair Display', serif;
-            font-size: 0.9em; /* Smaller font for footer */
-            transition: color 0.3s ease, opacity 0.3s ease, text-shadow 0.3s ease;
-            opacity: 0.7; /* Make it dimmer */
-        }
-
-        .footer-nav li a:hover {
-            color: var(--primary-red); /* Brighter RED on hover */
-            opacity: 1; /* Full opacity on hover */
-        }
-
-        .footer-nav li a.active {
-            color: var(--primary-red); /* Brighter RED for active link */
-            opacity: 1;
-            text-shadow: 0 0 6px var(--brightest-red-accent); /* Glow effect for active footer link */
-        }
-
-        .copyright { /* Matched DS */
-            text-align: center;
-            font-size: 0.85em;
-            color: #aaa;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.08);
-            max-width: 1200px;
-            margin: 0 auto;
-            font-family: 'Lato', sans-serif;
-        }
-
-        /* Animations */
-        @keyframes fadeIn { /* Matched DS */
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes textFadeIn { to { opacity: 1; } } /* Matched DS */
-
-        /* Hamburger Menu Icon */
-        .hamburger-menu {
-            display: none; 
-            cursor: pointer;
-            z-index: 1002;
-            align-self: center;
-        }
-
-        .hamburger-menu div {
-            width: 28px;
-            height: 3px;
-            background-color: var(--light-red-accent);
-            margin: 6px 0;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            border-radius: 1px;
-        }
-
-        .hamburger-menu.open div:nth-child(1) {
-            transform: rotate(-45deg) translate(-7px, 7px);
-        }
-
-        .hamburger-menu.open div:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger-menu.open div:nth-child(3) {
-            transform: rotate(45deg) translate(-6px, -7px);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .section-header,
-            .notice-section:nth-of-type(even) .section-header { /* Stack them on smaller screens */
-                flex-direction: column!important;
-                gap: 3rem;
-            }
-            .section-image {
-                width: 70%;
-                max-width: 450px;
-                aspect-ratio: 1/1; /* Square for column layout might look better */
-                margin: 0 auto 2rem auto;
-            }
-            .dominant-statement h1 { font-size: 3.5rem; } /* Matched DS */
-            h2 { font-size: 2.5rem; } /* Matched DS */
-            .tribute-card h3, .method-card h3, .method-card h4 { font-size: 1.6rem; }
-
-            .giftcard-list { columns: 1; }
-        }
-
-        @media (max-width: 768px) {
-            .nav-wrapper {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding-left: 1.5rem; 
-                padding-right: 1.5rem;
-                /* padding-top: 0.8rem; Ensure this is present or inherited */
-                /* padding-bottom: 0.8rem; Ensure this is present or inherited */
-            }
-
-            .nav-links { 
-                position: absolute;
-                top: 100%; 
-                left: 0;
-                right: 0;
-                background: var(--background-nav); 
-                backdrop-filter: blur(12px); 
-                flex-direction: column;
-                align-items: center;
-                padding: 0; 
-                gap: 0; 
-                box-shadow: 0 8px 15px rgba(0,0,0,0.25);
-                max-height: 0; 
-                overflow: hidden;
-                transition: max-height 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), padding-top 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), padding-bottom 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-                z-index: 999; 
-                /* flex-wrap: wrap; Remove this as it's for inline items */
-            }
-            
-            .nav-links.menu-open {
-                max-height: 300px; 
-                padding-top: 1rem; 
-                padding-bottom: 1rem;
-            }
-
-            .nav-links li {
-                width: 100%;
-            }
-
-            .nav-links a {
-                /* font-size: 1em; Ensure this is present or inherited */
-                padding: 0.8rem 1rem; 
-                width: 100%;
-                text-align: center;
-                border-bottom: 1px solid var(--border-tier); 
-            }
-            .nav-links li:last-child a {
-                border-bottom: none; 
-            }
-
-            .nav-links a::before { 
-                display: none; 
-            }
-            .nav-links a.active {
-                background-color: rgba(231, 76, 60, 0.1); 
-            }
-
-            .hamburger-menu {
-                display: block; 
-            }
-
-            .dominant-statement { padding: 100px 1.5rem 30px; }
-            .dominant-statement h1 { font-size: 2.8rem; line-height: 1.3; }
-            h2 { font-size: 2.2rem; }
-            .tribute-card h3, .method-card h3, .method-card h4 { font-size: 1.5rem; }
-
-
-            .footer-nav { flex-direction: column; align-items: center; gap: 1rem; }
-            footer { padding: 2rem 0 1.5rem 0; }
-        }
-
-        @media (max-width: 480px) {
-            body { line-height: 1.6; }
-            .dominant-statement h1 { font-size: 2.2rem; }
-            .notice-container { padding: 0 1rem; }
-            .section-header { gap: 2rem; }
-            .section-image { width: 90%; aspect-ratio: 4/5; }
-
-
-            .tribute-grid, .payment-methods { grid-template-columns: 1fr; gap: 1.5rem; }
-            .tribute-card, .method-card { padding: 1.5rem; }
-            h2 { font-size: 2rem; margin-bottom: 2rem; }
-            .tribute-card h3, .method-card h3, .method-card h4 { font-size: 1.4rem; }
-            .tribute-item { padding-left: 2rem; font-size: 1em; }
-            .tribute-item::before { font-size: 1.3em; }
-        }
-    </style>
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
     <nav>
@@ -500,155 +27,111 @@
     </nav>
 
     <div class="dominant-statement">
-        <h1>Make Me Notice You</h1>
+        <h1>PAY ME</h1>
     </div>
 
-    <div class="notice-container">
-        <section id="tribute" class="notice-section">
-            <div class="section-header">
-                <div class="section-image">
-                    <img src="https://picsum.photos/600/800?random=10" alt="Ebony Temptress Mango teasing with oversized pillow">
-                </div>
-                <div class="section-text">
-                    <h2>Tribute</h2>
-                    <p>I am a <span class="highlight">Financial Dominatrix</span>, which means my primary kink revolves around receiving tribute—a gesture of appreciation that honors My influence.</p>
-                    <p class="emphasized">This tribute could take the form of pre-arranged payments made daily, weekly, or monthly, or by purchasing items from My favorites list to help grow My businesses, support My education, and embrace all that life has to offer.</p>
-                    <p>True devotion requires consistent demonstration of your commitment to My glory. Below you'll find various ways to prove your worthiness.</p>
-                </div>
+    <section id="payment-methods">
+        <div class="section-content">
+            <div class="image-container">
+                <img src="https://picsum.photos/600/800?random=10" alt="Payment methods">
             </div>
-        </section>
+            <div class="text-content">
+                <h2>Here's where you send your money, gifts, and offerings:</h2>
+                
+                <ul>
+                    <li><span class="highlight">LoyalFans</span> – Clips, posts, and custom audios</li>
+                    <li><span class="highlight">Niteflirt</span> – Tips, pay-per-minute calls</li>
+                    <li><span class="highlight">CashApp</span> – Daily or spontaneous tributes</li>
+                    <li><span class="highlight">Throne</span> – Wishlist gifts I actually want</li>
+                    <li><span class="highlight">Gift Cards</span> – Uber, Amazon, SpaFinder, etc.</li>
+                </ul>
 
-        <section id="adopt" class="notice-section">
-            <div class="section-header">
-                <div class="section-image">
-                    <img src="https://picsum.photos/600/800?random=11" alt="Mistress Mango in Puerto Rico">
-                </div>
-                <div class="section-text">
-                    <h2>Adopt A Bill</h2>
-                    <p>Contribute to My divine lifestyle by adopting one of My monthly expenses. This is the purest form of financial submission—directly supporting My daily existence.</p>
-                    <p class="emphasized">Select a bill that resonates with your devotion level and contact Me to establish your tribute schedule.</p>
-                </div>
+                <p class="emphasized">Choose your method and send. No excuses, no delays.</p>
             </div>
+        </div>
+    </section>
 
-            <div class="tribute-grid">
-                <div class="tribute-card">
-                    <h3>Basic Necessities</h3>
-                    <div class="tribute-item">Groceries - $300/month</div>
-                    <div class="tribute-item">Car Maintenance - $700/month</div>
-                    <div class="tribute-item">Utilities - $1,400/month</div>
-                </div>
-
-                <div class="tribute-card">
-                    <h3>Investments</h3>
-                    <div class="tribute-item">Roth IRA - $500+/month</div>
-                    <div class="tribute-item">Business Expenses - $2,000/month</div>
-                    <div class="tribute-item">Grad School Tuition - $30,000/year</div>
-                </div>
-
-                <div class="tribute-card">
-                    <h3>Major Commitments</h3>
-                    <div class="tribute-item">Mortgage - $3,600/month</div>
-                    <div class="tribute-item">Reparations - Any Amount</div>
-                    <div class="tribute-item highlight">(Most sacred offering)</div>
-                </div>
+    <section id="bills">
+        <div class="section-content">
+            <div class="image-container">
+                <img src="https://picsum.photos/600/800?random=11" alt="Adopt a bill">
             </div>
-        </section>
-
-        <section id="spoil" class="notice-section">
-            <div class="section-header">
-                <div class="section-image">
-                    <img src="https://picsum.photos/600/800?random=12" alt="Goddess Mango's foot creating art">
-                </div>
-                <div class="section-text">
-                    <h2>Spoil Me</h2>
-                    <p>Favorites that bring Me joy, inspire creativity, and fill My cup. These offerings demonstrate your attention to My personal pleasures.</p>
-                    <p class="emphasized">Gifts should be sent without expectation—true devotion is its own reward.</p>
-                </div>
-            </div>
-
-            <div class="tribute-grid">
-                <div class="tribute-card">
-                    <h3>Creative Pursuits</h3>
-                    <div class="tribute-item">Art Supplies - $200+</div>
-                    <div class="tribute-item">Latex - $300+</div>
-                    <div class="tribute-item">Cosplay - $500+</div>
-                </div>
-
-                <div class="tribute-card">
-                    <h3>Experiences</h3>
-                    <div class="tribute-item">Dining Out - $300+</div>
-                    <div class="tribute-item">Spa Days - $400/bi-weekly</div>
-                    <div class="tribute-item">Concerts - $500+</div>
-                </div>
-
-                <div class="tribute-card">
-                    <h3>Luxuries</h3>
-                    <div class="tribute-item">Shopping - $1,000+</div>
-                    <div class="tribute-item">Travel - $2,000+</div>
-                    <div class="tribute-item highlight">(Surprise destinations preferred)</div>
-                </div>
-            </div>
-        </section>
-
-        <section id="payment" class="notice-section">
-            <div class="section-header">
-                <div class="section-image">
-                    <img src="https://picsum.photos/600/800?random=13" alt="Temptress Mango as Poison Ivy">
-                </div>
-                <div class="section-text">
-                    <h2>Payment Methods</h2>
-                    <p>When sending, please leave the note section blank unless otherwise instructed. All tributes should include a 15% service fee unless you've reached Whale status.</p>
-                    <p class="emphasized">Remember: Tribute is not payment for services—it is worship for the privilege of My attention.</p>
-                </div>
-            </div>
-
-            <div class="payment-methods">
-                <div class="method-card">
-                    <h4>Digital Payments</h4>
-                    <div class="tribute-item">
-                        <a href="https://cash.app/$TemptressMango" target="_blank" rel="noopener noreferrer">Cash App</a>
+            <div class="text-content">
+                <h2>📌 Adopt a Bill</h2>
+                <p class="emphasized">Want to be useful? Take care of My monthly expenses. Pick one and commit.</p>
+                
+                <div class="tribute-grid">
+                    <div class="tribute-card">
+                        <h3>Essential Bills</h3>
+                        <div class="tribute-item">Lash fills</div>
+                        <div class="tribute-item">Phone</div>
+                        <div class="tribute-item">Wi-Fi</div>
+                        <div class="tribute-item">Groceries</div>
                     </div>
-                    <div class="tribute-item">
-                        Apple Pay: Temptressmango@gmail.com
+
+                    <div class="tribute-card">
+                        <h3>Lifestyle Bills</h3>
+                        <div class="tribute-item">Subscriptions</div>
+                        <div class="tribute-item">Transportation</div>
+                        <div class="tribute-item highlight">Recurring monthly commitment</div>
                     </div>
                 </div>
 
-                <div class="method-card">
-                    <h4>Gift Cards</h4>
-                    <div class="tribute-item">
-                        Email to: Temptressmango@gmail.com
-                    </div>
-                    <ul class="giftcard-list">
-                        <li class="tribute-item">Visa</li>
-                        <li class="tribute-item">Amazon</li>
-                        <li class="tribute-item">Lowe's</li>
-                        <li class="tribute-item">Michaels</li>
-                        <li class="tribute-item">Jo Ann's Fabric</li>
-                        <li class="tribute-item">Hobby Lobby</li>
-                        <li class="tribute-item">Shell (Gas)</li>
-                        <li class="tribute-item">SpaFinder</li>
-                        <li class="tribute-item">Door Dash</li>
-                        <li class="tribute-item">Uber/Lyft</li>
-                    </ul>
-                </div>
-
-                <div class="method-card">
-                    <h4>Wishlist</h4>
-                    <div class="tribute-item">
-                        <a href="https://throne.com/temptressmango" target="_blank" rel="noopener noreferrer">Throne Wishlist</a>
-                    </div>
-                </div>
-
-                <div class="method-card">
-                    <h4>Clip Sites</h4>
-                    <p style="font-size: 0.9em; margin-bottom:0.5em;">While I have a particular fondness for direct worship, I graciously accept tributes through all of My platforms. I have a special preference for:</p>
-                    <div class="tribute-item">I Want Clips</div>
-                    <div class="tribute-item">NiteFlirt</div>
-                    <div class="tribute-item">Premium Chat</div>
-                </div>
+                <p class="emphasized">This is your chance to actually matter in My life. Don't waste it.</p>
             </div>
-        </section>
-    </div>
+        </div>
+    </section>
+
+    <section id="luxury">
+        <div class="section-content">
+            <div class="image-container">
+                <img src="https://picsum.photos/600/800?random=12" alt="Luxury spoiling">
+            </div>
+            <div class="text-content">
+                <h2>✨ Luxury Spoiling I Expect</h2>
+                <p>Think you're ready to spoil Me properly? These are the offerings that get My attention:</p>
+                
+                <div class="tribute-grid">
+                    <div class="tribute-card">
+                        <h3>Experiences</h3>
+                        <div class="tribute-item">Spa Days</div>
+                        <div class="tribute-item">Michelin-star Dining</div>
+                        <div class="tribute-item">Travel & Flights</div>
+                    </div>
+
+                    <div class="tribute-card">
+                        <h3>Material Gifts</h3>
+                        <div class="tribute-item">Designer Shopping</div>
+                        <div class="tribute-item">Tech, Jewelry, Lingerie</div>
+                        <div class="tribute-item highlight">Only the finest quality</div>
+                    </div>
+                </div>
+
+                <p class="emphasized">Impress Me with your generosity. Disappoint Me with your cheapness.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="reality">
+        <div class="section-content">
+            <div class="image-container">
+                <img src="https://picsum.photos/600/800?random=13" alt="Payment reality">
+            </div>
+            <div class="text-content">
+                <h2>The Reality</h2>
+                
+                <div style="background: var(--background-tier); border-left: 4px solid var(--primary-red); padding: 1.5rem; margin: 2rem 0; border-radius: 8px; font-style: italic; color: var(--text-heading-light); text-align: center; font-size: 1.1em;">
+                    "You don't get to exist in my world without paying for the privilege."
+                </div>
+
+                <p>Every interaction costs. Every moment of My time has value. Every breath you take in My presence is earned through tribute.</p>
+                
+                <p class="emphasized">Stop looking for free content. Stop hoping for discounts. Start paying what you owe.</p>
+
+                <p><strong>Your wallet is the only thing about you that interests Me.</strong></p>
+            </div>
+        </div>
+    </section>
 
     <footer>
         <ul class="footer-nav">

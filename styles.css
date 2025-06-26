@@ -1,0 +1,1191 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root { /* Define theme colors */
+    --primary-red: #E74C3C; /* Alizarin Crimson - Main vibrant red */
+    --light-red-accent: #EC7063; /* Lighter, softer red for nav links, H3 */
+    --brightest-red-accent: #F1948A; /* Softer pinkish red for underlines */
+    --darker-muted-red: #A93226; /* Darker, desaturated red for footer */
+    --text-light: #e0e0e0;
+    --text-heading-light: #f5f5f5;
+    --background-dark: #1a1a1a;
+    --background-nav: rgba(20, 20, 20, 0.85);
+    --background-tier: rgba(231, 76, 60, 0.03); /* Based on primary-red */
+    --border-tier: rgba(231, 76, 60, 0.2); /* Based on primary-red */
+    --shadow-tier-hover: rgba(231, 76, 60, 0.1); /* Based on primary-red */
+    --timeline-content-bg: rgba(30, 30, 30, 0.9); /* Dark background for timeline items */
+}
+
+body {
+    background-color: var(--background-dark);
+    color: var(--text-light);
+    font-family: 'Lato', sans-serif;
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Navigation */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--background-nav);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+.nav-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    list-style: none;
+}
+
+.nav-links a { 
+    text-decoration: none;
+    color: var(--light-red-accent); /* Dimmer RED color for nav links */
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    font-size: 1.1em;
+    position: relative;
+    padding: 0.5rem 0;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    opacity: 0.7; /* Make it dimmer */
+}
+
+.nav-links a::before { 
+    content: '';
+    position: absolute;
+    bottom: -2px; /* Slightly lower for a distinct look */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2.5px; /* Slightly thicker */
+    background: var(--brightest-red-accent); /* Brightest red for underline */
+    transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border-radius: 1px;
+}
+
+.nav-links a:hover { 
+    color: var(--primary-red); /* Brighter RED on hover */
+    opacity: 1; /* Full opacity on hover */
+}
+.nav-links a:hover::before, 
+.nav-links a.active::before { 
+    width: 100%;
+}
+.nav-links a.active { 
+    color: var(--primary-red); /* Brighter RED for active link */
+    opacity: 1; /* Full opacity for active link */
+    text-shadow: 0 0 8px var(--brightest-red-accent); /* Glow effect for active link */
+}
+
+/* Dominant Statement */
+.dominant-statement {
+    text-align: center;
+    padding: 100px 2rem 30px; /* Reduced from 120px/40px */
+    width: 100%;
+    margin: 0 auto;
+}
+
+.dominant-statement h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3.2rem; /* Reduced from 4rem */
+    font-weight: 700;
+    line-height: 1.3; /* Slightly increased for readability */
+    color: var(--primary-red);
+    margin: 0 auto;
+    letter-spacing: 0px;
+    animation: textFadeIn 1s ease 0.2s forwards;
+    opacity: 0;
+    max-width: 1000px; /* Reduced max-width for better readability */
+}
+
+/* Sections */
+section {
+    padding: 4rem 0; /* Reduced from 7rem */
+    min-height: auto; /* Remove min-height constraint */
+    display: flex;
+    align-items: center;
+    animation: fadeIn 0.8s ease forwards;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+section:last-of-type { 
+    padding-bottom: 6rem; /* Reduced from 10rem */
+}
+
+/* Remove the compact styling overrides since we're making everything more compact */
+#booking, #services, #worship {
+    min-height: auto;
+    padding: 4rem 0; /* Now consistent with all sections */
+}
+
+/* Typography improvements */
+h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem; /* Reduced from 3rem */
+    font-weight: 700;
+    color: var(--text-heading-light);
+    margin-bottom: 1.5rem; /* Reduced from 2rem */
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; /* Reduced from 1.8rem */
+    font-weight: 600;
+    color: var(--light-red-accent);
+    margin-bottom: 1rem; /* Reduced from 1.5rem */
+}
+
+h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; /* Reduced from 1.4rem */
+    font-weight: 600;
+    color: var(--light-red-accent);
+    margin-bottom: 0.75rem; /* Reduced from 1rem */
+}
+
+p {
+    font-size: 1rem; /* Keep at 1rem for body text readability */
+    margin-bottom: 1rem; /* Reduced from 1.5rem */
+    line-height: 1.6; /* Slightly tighter line height */
+}
+
+.emphasized {
+    font-size: 1.1rem; /* Reduced from 1.25em */
+    font-weight: 500;
+    color: var(--text-heading-light);
+    text-align: center;
+    margin: 1.5rem 0; /* Reduced from 2rem */
+    font-style: italic;
+}
+
+/* Two-column layout for booking details & worship details */
+.booking-details,
+.worship-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    margin: 1.5rem 0;
+}
+
+.booking-details h3,
+.worship-details h3 {
+    font-size: 1.5rem; /* Slightly smaller H3 */
+    margin-bottom: 0.75rem;
+}
+
+.booking-details ul,
+.worship-details ul {
+    margin: 0.5rem 0 1rem 0;
+}
+
+/* Service categories grid */
+.service-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    margin: 1.5rem 0;
+}
+
+.service-category {
+    background: var(--background-tier);
+    border: 1px solid var(--border-tier);
+    padding: 1.5rem;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.service-category:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px var(--shadow-tier-hover);
+}
+.service-category h3 {
+    font-size: 1.6rem; /* Match H3 in kinks page */
+    color: var(--light-red-accent);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-tier);
+}
+.service-category ul {
+    margin: 0.5rem 0 0 0; /* Remove top margin if h3 has border-bottom */
+}
+.service-category li {
+    font-size: 0.95rem;
+    padding-left: 2rem; /* Align with other list items */
+}
+.service-category li::before {
+    font-size: 1.3em; /* Match other list item icons */
+}
+
+.section-content {
+    display: flex;
+    align-items: center;
+    gap: 5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    width: 100%;
+}
+
+.image-container {
+    flex: 0 0 40%;
+    position: relative;
+    aspect-ratio: 3/4;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    transition: transform 0.5s ease;
+}
+.image-container:hover img {
+    transform: scale(1.05);
+}
+
+.text-content {
+    flex: 1;
+    text-align: center;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Content Styling */
+.highlight {
+    color: var(--primary-red); /* Main red for highlights */
+    font-weight: 600;
+    text-shadow: 0 0 5px rgba(231, 76, 60, 0.3); /* Red shadow */
+}
+
+.text-content > .emphasized { /* If directly under text-content, center it */
+     text-align: center;
+     align-self: center; /* Ensure it centers itself */
+     max-width: 80%; /* Prevent it from being too wide */
+}
+
+.section-content ul {
+    list-style: none;
+    margin: 2rem 0;
+    width: 100%;
+    max-width: 600px;
+}
+
+.section-content li {
+    margin: 1.2rem 0;
+    padding-left: 2.5rem;
+    position: relative;
+    text-align: left;
+    font-size: 1.05em;
+}
+
+.section-content li::before {
+    content: "⚜";
+    position: absolute;
+    left: 0;
+    top: -2px;
+    color: var(--primary-red); /* Main red for list icon */
+    font-weight: normal;
+    font-size: 1.5em;
+}
+
+/* Alternating Layout */
+body > section:nth-of-type(odd) .section-content {
+    flex-direction: row;
+}
+body > section:nth-of-type(even) .section-content {
+     flex-direction: row-reverse;
+}
+
+/* Worship Section Tiers */
+.tiers {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin: 2.5rem 0;
+    width: 100%;
+}
+
+/* For sections like Testimonials that might have 4 items */
+#testimonials .tiers {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* More responsive for varying items */
+}
+
+.tier {
+    background: var(--background-tier); /* Subtle red sheen */
+    border: 1px solid var(--border-tier); /* Fainter red border */
+    padding: 2rem;
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left; /* Testimonials text left-aligned */
+}
+.tier:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px var(--shadow-tier-hover); /* Red hover shadow */
+}
+
+.tier p {
+    font-size: 0.95em;
+    margin-bottom: 1rem;
+    color: #c0c0c0;
+}
+
+.tier ul {
+    margin: 0.5rem 0;
+    padding-left: 0;
+}
+
+.tier li {
+    font-size: 0.95rem;
+    padding-left: 1.5rem;
+    margin: 0.8rem 0;
+    color: #d0d0d0;
+}
+
+.tier li::before {
+    content: "⚭";
+    color: var(--primary-red); /* Main red for tier list icon */
+    font-size: 1.2em;
+    top: 0px;
+}
+
+/* Timeline */
+.timeline {
+    position: relative;
+    max-width: 800px; /* Adjust as needed */
+    margin: 3rem auto;
+    padding: 2rem 0;
+    width: 100%; /* Take available width in its container */
+}
+
+.timeline::before { /* The central line */
+    content: '';
+    position: absolute;
+    width: 3px; /* Slightly thicker line */
+    background-color: var(--primary-red);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -1.5px; /* Adjust for thicker line */
+    border-radius: 2px;
+}
+
+.timeline-item {
+    padding: 10px 40px;
+    position: relative;
+    width: 50%;
+    box-sizing: border-box;
+}
+
+.timeline-item:nth-child(odd) { /* Item on the left */
+    left: 0;
+    padding-right: 60px; /* Space for the circle */
+    text-align: right;
+}
+
+.timeline-item:nth-child(even) { /* Item on the right */
+    left: 50%;
+    padding-left: 60px; /* Space for the circle */
+    text-align: left;
+}
+
+/* Circle on the timeline */
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background-color: var(--background-dark);
+    border: 4px solid var(--primary-red);
+    top: 28px; /* Adjust vertical position */
+    border-radius: 50%;
+    z-index: 1;
+}
+.timeline-item:nth-child(odd)::after {
+    right: 31px; /* (40px padding - (18px width / 2) - 4px border) approx */
+}
+.timeline-item:nth-child(even)::after {
+    left: 31px;
+}
+
+.timeline-content {
+    padding: 20px;
+    background: var(--timeline-content-bg);
+    border-radius: 10px; /* Softer radius */
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4); /* Stronger shadow for dark bg */
+    position: relative; /* For potential arrows */
+    border: 1px solid var(--border-tier);
+}
+
+/* Optional: Arrow pointing to timeline */
+.timeline-content::before {
+    content: " ";
+    height: 0;
+    position: absolute;
+    top: 22px;
+    width: 0;
+    z-index: 1;
+    border: medium solid var(--timeline-content-bg);
+}
+.timeline-item:nth-child(odd) .timeline-content::before {
+    right: -15px; /* Adjust to touch the item */
+    border-width: 10px 0 10px 15px;
+    border-color: transparent transparent transparent var(--timeline-content-bg);
+}
+.timeline-item:nth-child(even) .timeline-content::before {
+    left: -15px;
+    border-width: 10px 15px 10px 0;
+    border-color: transparent var(--timeline-content-bg) transparent transparent;
+}
+
+.timeline-date {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: var(--light-red-accent);
+    margin-bottom: 0.75rem;
+    font-size: 1.2em;
+}
+.timeline-content p {
+    font-size: 0.95em;
+    color: var(--text-light);
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive columns */
+    gap: 2rem; /* Increased gap */
+    margin: 2.5rem 0;
+    width: 100%;
+}
+
+.stat-item {
+    background: var(--background-tier);
+    border: 1px solid var(--border-tier);
+    padding: 2rem; /* More padding */
+    border-radius: 12px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.stat-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px var(--shadow-tier-hover);
+}
+
+.stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem; /* Larger number */
+    font-weight: 700;
+    color: var(--primary-red);
+    margin-bottom: 0.5rem;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 1em; /* Slightly larger label */
+    color: var(--text-light);
+}
+
+/* Kinks Page Specific Styles */
+.kinky-container {
+    max-width: 1000px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+}
+
+.kinky-intro {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    margin-bottom: 1rem;
+    padding: 2rem; /* Added padding */
+}
+
+.kinky-image {
+    flex: 0 0 300px; /* Keep existing size or adapt */
+    border-radius: 20px; /* From original theme */
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5); /* From original theme */
+    aspect-ratio: 3/4; /* from original theme */
+}
+
+.kinky-image img {
+    width: 100%;
+    height: 100%; /* for aspect ratio */
+    object-fit: cover; /* for aspect ratio */
+    display: block;
+    transition: transform 0.5s ease; /* from original theme */
+}
+.kinky-image:hover img {
+    transform: scale(1.05); /* from original theme */
+}
+
+.kinky-text {
+    flex: 1;
+    text-align: left; /* Default, can be center if preferred */
+}
+.kinky-text p {
+    font-size: 1.05em;
+}
+
+/* Kink Lists */
+.kink-section {
+    margin-bottom: 3rem;
+    background: var(--background-tier); /* Subtle red sheen */
+    border: 1px solid var(--border-tier); /* Fainter red border */
+    border-radius: 15px;
+    padding: 2.5rem; /* Increased padding */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2); /* Darker shadow */
+}
+
+.kink-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Slightly wider */
+    gap: 2rem; /* Increased gap */
+    margin-top: 2rem;
+}
+
+.kink-category {
+    background: rgba(0,0,0,0.1); /* Darker, more subtle background */
+    border: 1px solid var(--border-tier);
+    padding: 1.5rem;
+    border-radius: 12px; /* Match tier style */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.kink-category:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px var(--shadow-tier-hover); /* Red hover shadow */
+}
+
+.kink-category h3 {
+    color: var(--light-red-accent); /* Lighter red for H3 */
+    margin-bottom: 1rem;
+    font-size: 1.6rem; /* Playfair */
+    font-family: 'Playfair Display', serif;
+    border-bottom: 1px solid var(--border-tier);
+    padding-bottom: 0.75rem;
+}
+
+.kink-list {
+    list-style: none;
+    padding-left: 0; /* Remove default padding */
+}
+
+.kink-list li {
+    margin-bottom: 0.8rem; /* Increased margin */
+    padding-left: 2.5rem; /* Adjusted for new icon */
+    position: relative;
+    font-size: 1em; /* Adjusted */
+    color: var(--text-light);
+}
+
+.kink-list li::before {
+    content: "⚜"; /* Changed icon */
+    position: absolute;
+    left: 0;
+    top: -2px;
+    color: var(--primary-red); /* Main red for list icon */
+    font-size: 1.5em; /* Adjusted icon size */
+}
+
+.limits {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.limit-box {
+    padding: 2rem; /* Increased padding */
+    border-radius: 12px; /* Match tier style */
+    border: 1px solid var(--border-tier);
+    background: rgba(0,0,0,0.1); /* Consistent dark background */
+}
+.limit-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px var(--shadow-tier-hover);
+}
+
+.soft-limits {
+    /* Custom border or subtle bg if needed, e.g., border-left: 4px solid #D4AC0D; */
+}
+
+.hard-limits {
+     border-left: 4px solid var(--primary-red); /* Emphasize hard limits */
+}
+
+.limit-box h3 {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    font-family: 'Playfair Display', serif;
+    color: var(--light-red-accent);
+    font-size: 1.6rem;
+}
+.limit-box h3::before { /* Emoji icons */
+    margin-right: 0.75rem;
+    font-size: 1.2em; /* Slightly larger emoji */
+}
+
+.soft-limits h3::before {
+    content: "⚠️";
+}
+
+.hard-limits h3::before {
+    content: "🚫";
+}
+.limit-box p, .limit-box .kink-list li {
+    color: #c0c0c0; /* Lighter text for these boxes */
+}
+
+.warning-box {
+    background: rgba(var(--primary-red-rgb, 231, 76, 60), 0.05); /* Use RGB for opacity on --primary-red */
+    border-left: 4px solid var(--primary-red);
+    padding: 2rem; /* Increased padding */
+    border-radius: 0 8px 8px 0;
+}
+.warning-box h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--light-red-accent);
+    font-size: 1.6rem;
+}
+
+/* Pay Me Page Specific Styles */
+.notice-container {
+    max-width: 1200px; /* Adjusted for wider layout potential */
+    margin: 4rem auto;
+    padding: 0 2rem;
+}
+
+.notice-section {
+    padding: 5rem 0; /* Consistent section padding */
+    animation: fadeIn 0.8s ease forwards;
+    opacity: 0;
+    transform: translateY(30px);
+    margin-bottom: 0; /* Removed default margin as padding handles spacing */
+}
+.notice-section:last-of-type {
+     margin-bottom: 3rem; /* Add some margin to the very last section if needed */
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 5rem; /* Matched DS */
+    margin-bottom: 3rem;
+    width:100%;
+}
+/* Alternating layout for section headers */
+.notice-section:nth-of-type(even) .section-header {
+    flex-direction: row-reverse;
+}
+
+.section-image {
+    flex: 0 0 40%; /* Matched DS */
+    position: relative;
+    aspect-ratio: 3/4; /* Matched DS */
+    border-radius: 20px; /* Matched DS */
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5); /* Matched DS */
+}
+
+.section-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease; /* Matched DS */
+}
+.section-image:hover img {
+    transform: scale(1.05); /* Matched DS */
+}
+
+.section-text {
+    flex: 1;
+    text-align: left; /* Default to left, can be centered if content demands */
+}
+.section-text p {
+    font-size: 1.05em;
+}
+
+/* Tribute Grid & Payment Methods (Card styling) */
+.tribute-grid, .payment-methods {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem; /* Increased top margin */
+}
+
+.tribute-card, .method-card {
+    background: var(--background-tier);
+    border: 1px solid var(--border-tier);
+    padding: 2rem; /* Standardized padding */
+    border-radius: 12px; /* Matched DS */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Matched DS */
+}
+
+.tribute-card:hover, .method-card:hover {
+    transform: translateY(-5px); /* Matched DS */
+    box-shadow: 0 10px 20px var(--shadow-tier-hover); /* Matched DS */
+}
+
+.tribute-card h3, .method-card h3, .method-card h4 { /* h4 in method-card acts like h3 */
+    font-family: 'Playfair Display', serif;
+    color: var(--light-red-accent);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem; /* Matched DS H3 */
+    border-bottom: 1px solid var(--border-tier);
+    padding-bottom: 0.75rem;
+    font-weight: 600; /* From DS */
+}
+.method-card h4 { /* Specific override if needed from 1.8rem */
+    font-size: 1.6rem; /* Slightly smaller for H4 if distinction is desired */
+}
+
+.tribute-item {
+    margin-bottom: 1rem;
+    padding-left: 2.5rem; /* Adjusted for new icon */
+    position: relative;
+    font-size: 1.05em; /* Matched DS li */
+    color: var(--text-light);
+}
+
+.tribute-item::before {
+    content: "⚜"; /* Changed icon */
+    position: absolute;
+    left: 0;
+    top: -2px; /* Matched DS li */
+    color: var(--primary-red);
+    font-size: 1.5em; /* Matched DS li */
+}
+
+.method-card a {
+    color: var(--light-red-accent); /* Themed link color */
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.method-card a:hover {
+    color: var(--brightest-red-accent); /* Brighter hover for links within cards */
+    text-decoration: underline;
+}
+
+.giftcard-list {
+    columns: 2;
+    margin-top: 1rem;
+    list-style: none; /* Ensure tribute-item styling takes over */
+    padding-left: 0;
+}
+.giftcard-list .tribute-item { /* Specificity for gift card list items */
+    font-size: 1em; /* Can adjust if they need to be smaller */
+}
+
+/* Footer */
+footer {
+    background: rgba(20, 20, 20, 0.9);
+    border-top: 1px solid var(--border-tier); /* Red-ish top border for footer */
+    padding: 3rem 0 2rem 0;
+    margin-top: 5rem;
+    text-align: center; /* Center align footer content */
+}
+
+.footer-nav { /* Style for the new footer navigation */
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0; /* Add some margin below the nav */
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem; /* Adjust gap as needed */
+}
+
+.footer-nav li a {
+    color: var(--light-red-accent); /* Dimmer RED color for footer nav links */
+    text-decoration: none;
+    font-family: 'Playfair Display', serif;
+    font-size: 0.9em; /* Smaller font for footer */
+    transition: color 0.3s ease, opacity 0.3s ease, text-shadow 0.3s ease; /* Added opacity and text-shadow to transition */
+    opacity: 0.7; /* Make it dimmer */
+}
+
+.footer-nav li a:hover {
+    color: var(--primary-red); /* Brighter RED on hover */
+    opacity: 1; /* Full opacity on hover */
+}
+
+/* Style for active footer nav link */
+.footer-nav li a.active {
+    color: var(--primary-red); /* Brighter RED for active link */
+    opacity: 1;
+    text-shadow: 0 0 6px var(--brightest-red-accent); /* Glow effect for active footer link */
+}
+
+.copyright {
+    text-align: center;
+    font-size: 0.85em;
+    color: #aaa;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'Lato', sans-serif;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes textFadeIn {
+    to { opacity: 1; }
+}
+
+/* Hamburger Menu Icon */
+.hamburger-menu {
+    display: none; /* Hidden by default, shown on mobile */
+    cursor: pointer;
+    /* padding: 0.5rem; Ensure it's within nav-wrapper padding */
+    z-index: 1002; /* Above nav-links if it overlaps, and nav itself */
+    align-self: center; /* Align with potential nav-brand if nav-wrapper is flex */
+}
+
+.hamburger-menu div {
+    width: 28px; /* Slightly larger */
+    height: 3px;
+    background-color: var(--light-red-accent);
+    margin: 6px 0; /* More spacing */
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border-radius: 1px;
+}
+
+/* Styling for open hamburger (cross icon) */
+.hamburger-menu.open div:nth-child(1) {
+    transform: rotate(-45deg) translate(-7px, 7px); /* Adjusted for new size/spacing */
+}
+
+.hamburger-menu.open div:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-menu.open div:nth-child(3) {
+    transform: rotate(45deg) translate(-6px, -7px); /* Adjusted for new size/spacing */
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .section-content,
+    .section-header,
+    .notice-section:nth-of-type(even) .section-header {
+        flex-direction: column!important;
+        gap: 3rem;
+        padding: 0 1.5rem;
+    }
+    
+    .image-container,
+    .section-image {
+        width: 70%;
+        max-width: 450px;
+        aspect-ratio: 1/1;
+    }
+    
+    .kinky-intro {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    .kinky-image {
+        width: 70%;
+        max-width: 450px;
+        aspect-ratio: 1/1;
+        margin: 0 auto 2rem auto;
+    }
+
+    .dominant-statement h1 {
+        font-size: 3.5rem;
+    }
+
+    .tiers, .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .limits {
+        grid-template-columns: 1fr;
+    }
+    
+    .kink-categories {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+    
+    #testimonials .tiers {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    
+    h2 {
+        font-size: 2.5rem;
+    }
+    h3 {
+        font-size: 1.6rem;
+    }
+    
+    .tribute-card h3, .method-card h3, .method-card h4 { 
+        font-size: 1.6rem; 
+    }
+
+    .giftcard-list { 
+        columns: 1; 
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-wrapper {
+        /* padding-top: 0.8rem; already there */
+        /* padding-bottom: 0.8rem; already there */
+        display: flex;
+        justify-content: space-between; /* Will push hamburger to right if nav-links is first or only other child */
+        align-items: center;
+        padding-left: 1.5rem; /* Add some padding for aesthetics */
+        padding-right: 1.5rem;
+    }
+    
+    .nav-links {
+        /* Original mobile styles are mostly for inline items, will be overridden */
+        position: absolute;
+        top: 100%; /* Position below the nav bar (relative to nav, not nav-wrapper) */
+        left: 0;
+        right: 0;
+        background: var(--background-nav); /* Same as nav */
+        backdrop-filter: blur(12px); /* Consistent blur */
+        flex-direction: column;
+        align-items: center;
+        padding: 0; /* No padding when closed */
+        gap: 0; /* No gap when closed, items will have their own padding */
+        box-shadow: 0 8px 15px rgba(0,0,0,0.25);
+        max-height: 0; /* Hidden by default */
+        overflow: hidden;
+        transition: max-height 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), padding-top 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), padding-bottom 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        z-index: 999; /* Below main nav but above page content */
+    }
+
+    .nav-links.menu-open {
+        max-height: 300px; /* Adjust as needed for number of links */
+        padding-top: 1rem; 
+        padding-bottom: 1rem;
+    }
+
+    .nav-links li { /* Add this to ensure full width clickable area */
+        width: 100%;
+    }
+
+    .nav-links a {
+        /* font-size: 1em; already there */
+        padding: 0.8rem 1rem; /* More padding for tap targets */
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid var(--border-tier); /* Separator for links */
+    }
+     .nav-links li:last-child a {
+        border-bottom: none; /* No border for the last item */
+    }
+
+    .nav-links a::before { 
+        display: none; /* Remove underline for mobile dropdown items */
+    }
+    /* Active styles for mobile menu items */
+    .nav-links a.active {
+        background-color: rgba(231, 76, 60, 0.1); /* Subtle red background for active mobile link */
+        /* text-shadow and color are already defined and should work */
+    }
+
+    .hamburger-menu {
+        display: block; /* Show hamburger on mobile */
+    }
+
+    .dominant-statement {
+        padding: 100px 1.5rem 30px;
+    }
+
+    .dominant-statement h1 {
+        font-size: 2.4rem; /* Further reduced for mobile */
+        line-height: 1.3;
+    }
+
+    .image-container,
+    .section-image {
+        width: 90%;
+        aspect-ratio: 4/5;
+    }
+
+    section,
+    .notice-section {
+        padding: 3rem 0; /* Reduced from 5rem */
+        min-height: auto;
+    }
+
+    h2 {
+        font-size: 1.9rem; /* Reduced for mobile */
+    }
+    h3,
+    .kink-category h3, 
+    .limit-box h3, 
+    .warning-box h3,
+    .tribute-card h3, 
+    .method-card h3, 
+    .method-card h4 {
+        font-size: 1.3rem; /* Reduced for mobile */
+    }
+
+    .footer-nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    footer {
+        padding: 2rem 0 1.5rem 0;
+    }
+    .tiers, 
+    .stats-grid {
+        grid-template-columns: 1fr; 
+        gap: 1.5rem;
+    }
+    .tier, 
+    .stat-item {
+        padding: 1.5rem;
+    }
+
+    /* Responsive Timeline */
+    .timeline::before {
+        left: 31px; /* Position line to the left */
+        margin-left: 0;
+    }
+    .timeline-item {
+        width: 100%; /* Full width */
+        padding-left: 70px; /* Space for the line and dot */
+        padding-right: 25px; /* Default padding */
+        text-align: left !important; /* Force left alignment */
+    }
+    .timeline-item:nth-child(even) {
+        left: 0; /* Align all items to the left */
+    }
+    .timeline-item::after { /* Position dot relative to the left line */
+        left: 22px; /* (31px line pos - (18px width / 2)) approx */
+    }
+    .timeline-item:nth-child(odd)::after,
+    .timeline-item:nth-child(even)::after {
+        left: 22px; /* Ensure all dots are on the left */
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content::before,
+    .timeline-item:nth-child(even) .timeline-content::before { /* Timeline arrow for mobile */
+        left: -15px;
+        border-width: 10px 15px 10px 0;
+        border-color: transparent var(--timeline-content-bg) transparent transparent;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        line-height: 1.6;
+    }
+    .dominant-statement h1 {
+        font-size: 2rem; /* Further reduced for small mobile */
+    }
+    
+    .section-content,
+    .notice-container,
+    .kinky-container {
+        padding: 0 1rem;
+        gap: 1.5rem; /* Reduced gap */
+    }
+    
+    .section-header {
+        gap: 1.5rem; /* Reduced gap */
+    }
+    
+    .text-content {
+        padding: 1.5rem 1rem;
+    }
+    
+    .text-content > .emphasized {
+        max-width: 95%;
+    }
+    
+    .section-content li {
+         padding-left: 2rem;
+         font-size: 0.95em; /* Slightly smaller */
+    }
+    .section-content li::before,
+    .kink-list li::before,
+    .tribute-item::before {
+        font-size: 1.3em;
+    }
+    
+    .kink-list li,
+    .tribute-item {
+        padding-left: 2rem; 
+        font-size: 0.9em; /* Further reduced */
+    }
+    
+    h2 {
+        font-size: 1.7rem; /* Further reduced for small mobile */
+        margin-bottom: 1.5rem; /* Reduced margin */
+    }
+    h3,
+    .kink-category h3, 
+    .limit-box h3, 
+    .warning-box h3,
+    .tribute-card h3, 
+    .method-card h3, 
+    .method-card h4 {
+        font-size: 1.2rem; /* Further reduced for small mobile */
+    }
+    
+    .stat-number {
+        font-size: 2.5rem;
+    }
+    .stat-label {
+        font-size: 0.9em;
+    }
+    
+    .kink-section, 
+    .limit-box, 
+    .warning-box,
+    .tribute-card, 
+    .method-card {
+        padding: 1.5rem;
+    }
+    
+    .tribute-grid, 
+    .payment-methods,
+    .kink-categories {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+} 

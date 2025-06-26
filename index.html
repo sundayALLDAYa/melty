@@ -7,630 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root { /* Define theme colors */
-            --primary-red: #E74C3C; /* Alizarin Crimson - Main vibrant red */
-            --light-red-accent: #EC7063; /* Lighter, softer red for nav links, H3 */
-            --brightest-red-accent: #F1948A; /* Softer pinkish red for underlines */
-            --darker-muted-red: #A93226; /* Darker, desaturated red for footer */
-            --text-light: #e0e0e0;
-            --text-heading-light: #f5f5f5;
-            --background-dark: #1a1a1a;
-            --background-nav: rgba(20, 20, 20, 0.85);
-            --background-tier: rgba(231, 76, 60, 0.03); /* Based on primary-red */
-            --border-tier: rgba(231, 76, 60, 0.2); /* Based on primary-red */
-            --shadow-tier-hover: rgba(231, 76, 60, 0.1); /* Based on primary-red */
-        }
-
-        body {
-            background-color: var(--background-dark);
-            color: var(--text-light);
-            font-family: 'Lato', sans-serif;
-            line-height: 1.7;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: var(--background-nav);
-            backdrop-filter: blur(12px);
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-        }
-
-        .nav-wrapper {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-top: 1rem;
-            padding-bottom: 0.5rem;
-        }
-
-        .nav-links {
-            display: flex;
-            justify-content: center;
-            gap: 2.5rem;
-            list-style: none;
-        }
-
-        .nav-links a { 
-            text-decoration: none;
-            color: var(--light-red-accent); /* Dimmer RED color for nav links */
-            font-family: 'Playfair Display', serif;
-            font-weight: 500;
-            font-size: 1.1em;
-            position: relative;
-            padding: 0.5rem 0;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            opacity: 0.7; /* Make it dimmer */
-        }
-
-        .nav-links a::before { 
-            content: '';
-            position: absolute;
-            bottom: -2px; /* Slightly lower for a distinct look */
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2.5px; /* Slightly thicker */
-            background: var(--brightest-red-accent); /* Brightest red for underline */
-            transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            border-radius: 1px;
-        }
-
-        .nav-links a:hover { 
-            color: var(--primary-red); /* Brighter RED on hover */
-            opacity: 1; /* Full opacity on hover */
-        }
-        .nav-links a:hover::before, 
-        .nav-links a.active::before { 
-            width: 100%;
-        }
-        .nav-links a.active { 
-            color: var(--primary-red); /* Brighter RED for active link */
-            opacity: 1; /* Full opacity for active link */
-            text-shadow: 0 0 8px var(--brightest-red-accent); /* Glow effect for active link */
-        }
-
-
-        /* Dominant Statement */
-        .dominant-statement {
-            text-align: center;
-            padding: 120px 2rem 40px;
-            width: 100%;
-            margin: 0 auto;
-        }
-
-        .dominant-statement h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 4.5rem;
-            font-weight: 700;
-            line-height: 1.2;
-            color: var(--primary-red); /* Main red for H1 */
-            margin: 0 auto;
-            letter-spacing: 0px;
-            animation: textFadeIn 1s ease 0.2s forwards;
-            opacity: 0;
-            max-width: 1200px;
-            text-shadow: 0 0 10px rgba(231, 76, 60, 0.5), 0 0 20px rgba(231, 76, 60, 0.3); /* Red shadow */
-        }
-
-        /* Sections */
-        section {
-            padding: 7rem 0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            animation: fadeIn 0.8s ease forwards;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        /* Compact styling for specific sections */
-        #booking, #services, #worship {
-            min-height: auto; /* Override default min-height */
-            padding: 4rem 0; /* Reduce top/bottom padding */
-        }
-
-        #booking .text-content h2,
-        #services .text-content h2,
-        #worship .text-content h2 {
-            margin-bottom: 1.5rem; /* Reduce bottom margin for H2 */
-        }
-
-        #booking .text-content p,
-        #services .text-content p,
-        #worship .text-content p {
-            margin-bottom: 1rem; /* Reduce bottom margin for paragraphs */
-        }
-        #booking .text-content .emphasized,
-        #services .text-content .emphasized,
-        #worship .text-content .emphasized {
-            margin: 1.5rem 0; /* Reduce margin for emphasized text */
-        }
-
-        /* Two-column layout for booking details & worship details */
-        .booking-details,
-        .worship-details {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            width: 100%;
-            margin: 1.5rem 0;
-        }
-
-        .booking-details h3,
-        .worship-details h3 {
-            font-size: 1.5rem; /* Slightly smaller H3 */
-            margin-bottom: 0.75rem;
-        }
-
-        .booking-details ul,
-        .worship-details ul {
-            margin: 0.5rem 0 1rem 0;
-        }
-         /* Service categories grid */
-        .service-categories {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            width: 100%;
-            margin: 1.5rem 0;
-        }
-
-        .service-category {
-            background: var(--background-tier);
-            border: 1px solid var(--border-tier);
-            padding: 1.5rem;
-            border-radius: 10px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .service-category:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px var(--shadow-tier-hover);
-        }
-        .service-category h3 {
-            font-size: 1.6rem; /* Match H3 in kinks page */
-            color: var(--light-red-accent);
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--border-tier);
-        }
-        .service-category ul {
-            margin: 0.5rem 0 0 0; /* Remove top margin if h3 has border-bottom */
-        }
-        .service-category li {
-            font-size: 0.95rem;
-            padding-left: 2rem; /* Align with other list items */
-        }
-        .service-category li::before {
-            font-size: 1.3em; /* Match other list item icons */
-        }
-
-        .section-content {
-            display: flex;
-            align-items: center;
-            gap: 5rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            width: 100%;
-        }
-
-        .image-container {
-            flex: 0 0 40%;
-            position: relative;
-            aspect-ratio: 3/4;
-            border-radius: 20px;
-            overflow: hidden;
-        }
-
-        .image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 20px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            transition: transform 0.5s ease;
-        }
-        .image-container:hover img {
-            transform: scale(1.05);
-        }
-
-        .text-content {
-            flex: 1;
-            text-align: center;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Content Styling */
-        .highlight {
-            color: var(--primary-red); /* Main red for highlights */
-            font-weight: 600;
-            text-shadow: 0 0 5px rgba(231, 76, 60, 0.3); /* Red shadow */
-        }
-
-        .emphasized {
-            font-size: 1.15em;
-            font-style: italic;
-            border-left: 4px solid var(--primary-red); /* Main red border */
-            padding-left: 1.5rem;
-            margin: 2rem 0;
-            color: #f0e0e0; /* Keep slightly brighter for emphasized text or use var(--text-light) */
-        }
-
-        .section-content ul {
-            list-style: none;
-            margin: 2rem 0;
-            width: 100%;
-            max-width: 600px;
-        }
-
-        .section-content li {
-            margin: 1.2rem 0;
-            padding-left: 2.5rem;
-            position: relative;
-            text-align: left;
-            font-size: 1.05em;
-        }
-
-        .section-content li::before {
-            content: "⚜";
-            position: absolute;
-            left: 0;
-            top: -2px;
-            color: var(--primary-red); /* Main red for list icon */
-            font-weight: normal;
-            font-size: 1.5em;
-        }
-
-        h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            margin-bottom: 2.5rem;
-            color: var(--text-heading-light);
-            font-weight: 700;
-            text-shadow: 0 0 8px rgba(0,0,0,0.3);
-        }
-
-        h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            margin: 2rem 0 1rem 0;
-            color: var(--light-red-accent); /* Lighter red for H3 */
-            font-weight: 600;
-        }
-        h4 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            color: var(--primary-red); /* Main red for H4 */
-            margin-bottom: 0.75rem;
-            font-weight: 600;
-        }
-
-        /* Alternating Layout */
-        body > section:nth-of-type(odd) .section-content {
-            flex-direction: row;
-        }
-        body > section:nth-of-type(even) .section-content {
-             flex-direction: row-reverse;
-        }
-
-        /* Worship Section Tiers */
-        .tiers {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-            margin: 2.5rem 0;
-        }
-
-        .tier {
-            background: var(--background-tier); /* Subtle red sheen */
-            border: 1px solid var(--border-tier); /* Fainter red border */
-            padding: 2rem;
-            border-radius: 12px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .tier:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px var(--shadow-tier-hover); /* Red hover shadow */
-        }
-
-        .tier p {
-            font-size: 0.95em;
-            margin-bottom: 1rem;
-            color: #c0c0c0;
-        }
-
-        .tier ul {
-            margin: 0.5rem 0;
-            padding-left: 0;
-        }
-
-        .tier li {
-            font-size: 0.95rem;
-            padding-left: 1.5rem;
-            margin: 0.8rem 0;
-            color: #d0d0d0;
-        }
-
-        .tier li::before {
-            content: "⚭";
-            color: var(--primary-red); /* Main red for tier list icon */
-            font-size: 1.2em;
-            top: 0px;
-        }
-
-        /* Footer */
-        footer {
-            background: rgba(20, 20, 20, 0.9);
-            border-top: 1px solid var(--border-tier); /* Red-ish top border for footer */
-            padding: 3rem 0 2rem 0;
-            margin-top: 5rem;
-            text-align: center; /* Center align footer content */
-        }
-
-        .footer-nav { /* Style for the new footer navigation */
-            list-style: none;
-            padding: 0;
-            margin: 0 0 1.5rem 0; /* Add some margin below the nav */
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem; /* Adjust gap as needed */
-        }
-
-        .footer-nav li a {
-            color: var(--light-red-accent); /* Dimmer RED color for footer nav links */
-            text-decoration: none;
-            font-family: 'Playfair Display', serif;
-            font-size: 0.9em; /* Smaller font for footer */
-            transition: color 0.3s ease, opacity 0.3s ease, text-shadow 0.3s ease; /* Added opacity and text-shadow to transition */
-            opacity: 0.7; /* Make it dimmer */
-        }
-
-        .footer-nav li a:hover {
-            color: var(--primary-red); /* Brighter RED on hover */
-            opacity: 1; /* Full opacity on hover */
-        }
-
-        /* Style for active footer nav link */
-        .footer-nav li a.active {
-            color: var(--primary-red); /* Brighter RED for active link */
-            opacity: 1;
-            text-shadow: 0 0 6px var(--brightest-red-accent); /* Glow effect for active footer link */
-        }
-
-        .copyright {
-            text-align: center;
-            font-size: 0.85em;
-            color: #aaa;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.08);
-            max-width: 1200px;
-            margin: 0 auto;
-            font-family: 'Lato', sans-serif;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes textFadeIn {
-            to { opacity: 1; }
-        }
-
-        /* Hamburger Menu Icon */
-        .hamburger-menu {
-            display: none; /* Hidden by default, shown on mobile */
-            cursor: pointer;
-            /* padding: 0.5rem; Ensure it's within nav-wrapper padding */
-            z-index: 1002; /* Above nav-links if it overlaps, and nav itself */
-            align-self: center; /* Align with potential nav-brand if nav-wrapper is flex */
-        }
-
-        .hamburger-menu div {
-            width: 28px; /* Slightly larger */
-            height: 3px;
-            background-color: var(--light-red-accent);
-            margin: 6px 0; /* More spacing */
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            border-radius: 1px;
-        }
-
-        /* Styling for open hamburger (cross icon) */
-        .hamburger-menu.open div:nth-child(1) {
-            transform: rotate(-45deg) translate(-7px, 7px); /* Adjusted for new size/spacing */
-        }
-
-        .hamburger-menu.open div:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger-menu.open div:nth-child(3) {
-            transform: rotate(45deg) translate(-6px, -7px); /* Adjusted for new size/spacing */
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .section-content {
-                flex-direction: column!important;
-                gap: 3rem;
-                padding: 0 1.5rem;
-            }
-            
-            .image-container {
-                width: 70%;
-                max-width: 450px;
-                aspect-ratio: 1/1;
-            }
-
-            .dominant-statement h1 {
-                font-size: 3.5rem;
-            }
-
-            .tiers {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-            h2 {
-                font-size: 2.5rem;
-            }
-            h3 {
-                font-size: 1.6rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-wrapper {
-                /* padding-top: 0.8rem; already there */
-                /* padding-bottom: 0.8rem; already there */
-                display: flex;
-                justify-content: space-between; /* Will push hamburger to right if nav-links is first or only other child */
-                align-items: center;
-                padding-left: 1.5rem; /* Add some padding for aesthetics */
-                padding-right: 1.5rem;
-            }
-            
-            .nav-links {
-                /* Original mobile styles are mostly for inline items, will be overridden */
-                position: absolute;
-                top: 100%; /* Position below the nav bar (relative to nav, not nav-wrapper) */
-                left: 0;
-                right: 0;
-                background: var(--background-nav); /* Same as nav */
-                backdrop-filter: blur(12px); /* Consistent blur */
-                flex-direction: column;
-                align-items: center;
-                padding: 0; /* No padding when closed */
-                gap: 0; /* No gap when closed, items will have their own padding */
-                box-shadow: 0 8px 15px rgba(0,0,0,0.25);
-                max-height: 0; /* Hidden by default */
-                overflow: hidden;
-                transition: max-height 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), padding-top 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), padding-bottom 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-                z-index: 999; /* Below main nav but above page content */
-            }
-
-            .nav-links.menu-open {
-                max-height: 300px; /* Adjust as needed for number of links */
-                padding-top: 1rem; 
-                padding-bottom: 1rem;
-            }
-
-            .nav-links li { /* Add this to ensure full width clickable area */
-                width: 100%;
-            }
-
-            .nav-links a {
-                /* font-size: 1em; already there */
-                padding: 0.8rem 1rem; /* More padding for tap targets */
-                width: 100%;
-                text-align: center;
-                border-bottom: 1px solid var(--border-tier); /* Separator for links */
-            }
-             .nav-links li:last-child a {
-                border-bottom: none; /* No border for the last item */
-            }
-
-            .nav-links a::before { 
-                display: none; /* Remove underline for mobile dropdown items */
-            }
-            /* Active styles for mobile menu items */
-            .nav-links a.active {
-                background-color: rgba(231, 76, 60, 0.1); /* Subtle red background for active mobile link */
-                /* text-shadow and color are already defined and should work */
-            }
-
-            .hamburger-menu {
-                display: block; /* Show hamburger on mobile */
-            }
-
-            .dominant-statement {
-                padding: 100px 1.5rem 30px;
-            }
-
-            .dominant-statement h1 {
-                font-size: 2.8rem;
-                line-height: 1.3;
-            }
-
-            .image-container {
-                width: 90%;
-                aspect-ratio: 4/5;
-            }
-
-            section {
-                padding: 5rem 0;
-                min-height: auto;
-            }
-
-            h2 {
-                font-size: 2.2rem;
-            }
-            h3 {
-                font-size: 1.5rem;
-            }
-
-            
-            footer {
-                padding: 2rem 0 1.5rem 0;
-            }
-            .tiers {
-                 gap: 1rem;
-            }
-            .tier {
-                padding: 1.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            body {
-                line-height: 1.6;
-            }
-            .dominant-statement h1 {
-                font-size: 2.2rem;
-            }
-            
-            .section-content {
-                padding: 0 1rem;
-                gap: 2rem;
-            }
-            
-            .text-content {
-                padding: 1.5rem 1rem;
-            }
-            .section-content li {
-                 padding-left: 2rem;
-                 font-size: 1em;
-            }
-            .section-content li::before {
-                font-size: 1.3em;
-            }
-            h2 {
-                font-size: 2rem;
-                margin-bottom: 2rem;
-            }
-            h3 {
-                font-size: 1.4rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
     <nav>
@@ -651,7 +28,7 @@
     </nav>
 
     <div class="dominant-statement">
-        <h1>I always have better things to do...</h1>
+        <h1>I am the one your wallet fears and your mind obsesses over.</br> Worship isn't free, and neither am I.</h1>
     </div>
 
     <section id="introduction">
@@ -660,9 +37,14 @@
                 <img src="https://picsum.photos/600/800?random=0" alt="Goddess embodiment">
             </div>
             <div class="text-content">
-                <h2>THE DIVINE PRESENCE</h2>
-                <p class="emphasized" style="text-align: center; font-size: 1.25em;">I am the embodiment of power and desire, a Goddess in an earthly form. Here, you will learn to serve, to adore, and to understand that your purpose is found in My pleasure.</p>
-                <p>Only the truly devoted will comprehend the intoxicating privilege of My attention. The rest will merely observe from the shadows, yearning for what they cannot attain.</p>
+                <h2>Welcome to my word</h2>
+                <p class="emphasized" style="text-align: center; font-size: 1.25em;">I am Goddess Melty—a commanding, unapologetic Financial Dominatrix and paid Femdom. I'm not here to coddle your fantasies. I'm here to be served, spoiled, and adored.
+                </p>
+                <p>In my realm, submission is paid for. Your devotion is proven through tribute, tasks, and unwavering obedience.
+                </br>  You want access? You pay for it.
+            </br>You want attention? You earn it.
+        </br>   You want to serve me? Start acting like it.
+                    </p>
             </div>
         </div>
     </section>
@@ -674,16 +56,20 @@
             </div>
             <div class="text-content">
                 <h2>EXPECTATIONS</h2>
-                <p class="emphasized">Booking a session with Me is a treasured experience, reserved for those who can appreciate the art of kinky sophistication.</p>
-                <p>I approach each encounter with <strong class="highlight">attention to detail</strong> and <strong class="highlight">unwavering professionalism</strong>. To be granted the privilege to serve, I expect the same.</p>
-                <p class="emphasized">Failure to comply or display any disrespect will result in immediate exile from Paradise.</p>
-                <h3>Cardinal Rules of Paradise:</h3>
+                <p class="emphasized">Before you even think about approaching Me, understand this: I am not here for your entertainment. I am here to be worshipped, served, and compensated for My divine presence.</p>
+                
+                <h3>Non-Negotiable Rules:</h3>
                 <ul>
-                    <li>You may only address Me as <span class="highlight">Mistress</span>, <span class="highlight">Goddess</span>, or <span class="highlight">Temptress</span></li>
-                    <li>Permission must be granted for <em>Mommy</em> or <em>Daddy</em></li>
-                    <li>Only servants who reach <span class="highlight">whale status</span> may address Me as <em>Princess</em></li>
-                    <li><strong>ALWAYS</strong> capitalize My honorific</li>
+                    <li><span class="highlight">Tributes are mandatory, not optional</span></li>
+                    <li>Don't approach Me without offering something of <span class="highlight">value</span></li>
+                    <li>I only accept <span class="highlight">paid subs</span></li>
+                    <li>I don't tolerate <strong>begging</strong>, <strong>entitlement</strong>, or <strong>disrespect</strong></li>
                 </ul>
+
+                <p class="emphasized">If you're unsure what to say, try this:</p>
+                <div style="background: var(--background-tier); border-left: 4px solid var(--primary-red); padding: 1.5rem; margin: 2rem 0; border-radius: 8px; font-style: italic; color: var(--text-heading-light); text-align: center; font-size: 1.1em;">
+                    "Goddess Melty, I've sent my tribute. May I earn a moment of your time?"
+                </div>
             </div>
         </div>
     </section>
@@ -694,29 +80,30 @@
                 <img src="https://picsum.photos/600/800?random=2" alt="Booking protocols">
             </div>
             <div class="text-content">
-                <h2>SESSION BOOKING</h2>
-                <p>I offer <span class="highlight">in-person</span>, <span class="highlight">virtual</span>, and <span class="highlight">FMTY</span> servitude opportunities.</p>
+                <h2>SESSION BOOKING INFO</h2>
+                <p class="emphasized">📍 Based in NYC.</p>
                 
                 <div class="booking-details">
                     <div>
-                        <h3>Requirements:</h3>
+                        <h3>🖤 In-Person Sessions:</h3>
                         <ul>
-                            <li>Clear photo of non-expired government ID</li>
-                            <li>30% non-refundable deposit</li>
-                            <li>First-class travel for FMTY</li>
+                            <li>Start at <span class="highlight">$500/hour</span></li>
+                            <li>Require a <span class="highlight">50% deposit</span></li>
+                            <li>Screening and ID are <strong>non-negotiable</strong></li>
+                            <li><span class="highlight">Fetish only</span> — no nudity, no sex</li>
                         </ul>
                     </div>
                     <div>
-                        <h3>Locations:</h3>
+                        <h3>FMTY (Fly Me To You)</h3>
                         <ul>
-                            <li>Primary: DC/MD/VA tri-state</li>
-                            <li>Regular travel: PA &amp; NC</li>
-                            <li class="highlight">5-star accommodation required</li>
+                            <li>Starts at <span class="highlight">$3,000 minimum</span></li>
+                            <li>You cover <span class="highlight">first-class airfare</span>, <span class="highlight">5-star lodging</span>, meals, transportation</li>
+                            <li><strong>I set the itinerary and session length.</strong> Obey it or forfeit everything</li>
                         </ul>
                     </div>
                 </div>
 
-                <p class="emphasized">NO exceptions to these protocols</p>
+                <p class="emphasized">Professional domination sessions only. Respect My boundaries or lose your investment.</p>
             </div>
         </div>
     </section>
@@ -727,37 +114,37 @@
                 <img src="https://picsum.photos/600/800?random=3" alt="Service offerings">
             </div>
             <div class="text-content">
-                <h2>SERVICES</h2>
-                <p>My dominion extends across various forms of servitude, each tailored to extract your utmost devotion.</p>
+                <h2>SERVICES I OFFER</h2>
+                <p>My dominion extends across various forms of servitude, each designed to extract your utmost devotion and demonstrate your worthiness.</p>
 
                 <div class="service-categories">
                     <div class="service-category">
                         <h3>Financial Domination</h3>
                         <ul>
-                            <li>RT Game: <span class="highlight">$25 deposit</span></li>
-                            <li>Wallet Drain: <span class="highlight">$250+</span></li>
-                            <li>Debt Contracts: <span class="highlight">$5k+</span></li>
+                            <li>Wallet Drains: <span class="highlight">$150 minimum</span></li>
+                            <li>RT Drains: From <span class="highlight">$25</span> (tribute + public display)</li>
+                            <li>Spending Control / Budget Domination</li>
                         </ul>
                     </div>
 
                     <div class="service-category">
-                        <h3>Female Domination</h3>
+                        <h3>Femdom Sessions (In-Person)</h3>
                         <ul>
-                            <li>Virtual sessions</li>
-                            <li>In-person: <span class="highlight">$475+/hr</span></li>
-                            <li>FMTY: <span class="highlight">$3k base</span></li>
+                            <li>Foot Worship, Humiliation, CBT, Impact, Trampling</li>
+                            <li>Shopping or Spoiling Trips <span class="highlight">(you carry bags, not opinions)</span></li>
                         </ul>
                     </div>
 
                     <div class="service-category">
-                        <h3>Lifestyle BDSM</h3>
+                        <h3>Exclusive Content</h3>
                         <ul>
-                            <li>For proven devotees</li>
-                            <li>Requires ongoing tribute</li>
-                            <li class="highlight">All privileges remain tribute-based</li>
+                            <li>Custom audios, clips, instructions</li>
+                            <li class="highlight">Tailored to your specific devotion needs</li>
                         </ul>
                     </div>
                 </div>
+
+                <p class="emphasized">All services require pre-negotiation and tribute. Your compliance determines your access level.</p>
             </div>
         </div>
     </section>
@@ -768,31 +155,44 @@
                 <img src="https://picsum.photos/600/800?random=4" alt="Worship protocols">
             </div>
             <div class="text-content">
-                <h2>WORSHIP ME</h2>
+                <h2>HOW TO WORSHIP ME</h2>
                 <p class="emphasized">True devotion requires consistent demonstration of your commitment to My glory.</p>
 
                 <div class="worship-details">
                     <div>
-                        <h3>Financial Tribute Methods</h3>
+                        <h3>I accept tribute through:</h3>
                         <ul>
-                            <li><span class="highlight">Cryptocurrency:</span> BTC/ETH/LTC</li>
-                            <li><span class="highlight">Cash Apps:</span> Venmo/CashApp/Wishtender</li>
-                            <li><span class="highlight">Gift Cards:</span> Amazon/Sephora/Luxury Retailers</li>
-                            <li class="highlight">All tributes must include 15% service fee</li>
+                            <li><span class="highlight">CashApp</span></li>
+                            <li><span class="highlight">Throne</span></li>
+                            <li><span class="highlight">Gift Cards</span></li>
+                            <li><span class="highlight">LoyalFans</span> (Tip +15%)</li>
+                            <li><span class="highlight">Niteflirt</span> (Tip +15%)</li>
                         </ul>
                     </div>
                     <div>
-                        <h3>Daily Devotion Protocols</h3>
+                        <h3>🛐 Weekly Devotion Protocol:</h3>
                         <ul>
-                            <li>Morning affirmation messages</li>
-                            <li>Midday financial offering</li>
-                            <li>Nightly tribute verification</li>
-                            <li class="highlight">Missed devotions incur 25% penalty</li>
+                            <li><span class="highlight">Two tributes per week</span> (timeliness required)</li>
+                            <li><span class="highlight">Daily Morning Devotion Message</span> (sent without me asking)</li>
+                            <li><strong>Disobedience = punishment or silence</strong></li>
                         </ul>
                     </div>
                 </div>
 
-                <h3>Devotion Tiers</h3>
+                <p class="emphasized">Your consistency in worship determines your value to Me. Prove your devotion through action, not words.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="tiers">
+        <div class="section-content">
+            <div class="image-container">
+                <img src="https://picsum.photos/600/800?random=5" alt="Devotion hierarchy">
+            </div>
+            <div class="text-content">
+                <h2>DEVOTION TIERS</h2>
+                <p class="emphasized">Your financial commitment determines your access level. Choose your path to serve Me.</p>
+
                 <div class="tiers">
                     <div class="tier">
                         <h4>Bronze Supplicant</h4>

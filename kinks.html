@@ -7,547 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root { /* Define theme colors from Divine Sovereignty page */
-            --primary-red: #E74C3C; /* Alizarin Crimson - Main vibrant red */
-            --light-red-accent: #EC7063; /* Lighter, softer red for nav links, H3 */
-            --brightest-red-accent: #F1948A; /* Softer pinkish red for underlines */
-            --darker-muted-red: #A93226; /* Darker, desaturated red for footer */
-            --text-light: #e0e0e0;
-            --text-heading-light: #f5f5f5;
-            --background-dark: #1a1a1a;
-            --background-nav: rgba(20, 20, 20, 0.85);
-            --background-tier: rgba(231, 76, 60, 0.03); /* Based on primary-red */
-            --border-tier: rgba(231, 76, 60, 0.2); /* Based on primary-red */
-            --shadow-tier-hover: rgba(231, 76, 60, 0.1); /* Based on primary-red */
-        }
-
-        body {
-            background-color: var(--background-dark);
-            color: var(--text-light);
-            font-family: 'Lato', sans-serif;
-            line-height: 1.7;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: var(--background-nav);
-            backdrop-filter: blur(12px);
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-        }
-
-        .nav-wrapper {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-top: 1rem;
-            padding-bottom: 0.5rem; /* Added from original theme */
-        }
-
-        .nav-links {
-            display: flex;
-            justify-content: center;
-            gap: 2.5rem; /* Adjusted from original theme */
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--light-red-accent); /* Nav link red */
-            font-family: 'Playfair Display', serif;
-            font-weight: 500;
-            font-size: 1.1em; /* Adjusted from original theme */
-            position: relative;
-            padding: 0.5rem 0;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            opacity: 0.7; /* Make it dimmer */
-        }
-
-        .nav-links a::before {
-            content: '';
-            position: absolute;
-            bottom: -2px; /* Slightly lower for a distinct look */
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2.5px; /* Slightly thicker */
-            background: var(--brightest-red-accent); /* Brightest red for underline */
-            transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            border-radius: 1px;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-red); /* Brighter RED on hover */
-            opacity: 1; /* Full opacity on hover */
-        }
-        .nav-links a:hover::before,
-        .nav-links a.active::before { /* Style for active link */
-            width: 100%;
-        }
-        .nav-links a.active {
-            color: var(--primary-red); /* Brighter RED for active link */
-            opacity: 1; /* Full opacity for active link */
-            text-shadow: 0 0 8px var(--brightest-red-accent); /* Glow effect for active link */
-        }
-
-
-        /* Dominant Statement */
-        .dominant-statement {
-            text-align: center;
-            padding: 120px 2rem 40px; /* Adjusted padding from original theme */
-            width: 100%;
-            margin: 0 auto;
-        }
-
-        .dominant-statement h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 4.5rem; /* Adjusted from original theme */
-            font-weight: 700;
-            line-height: 1.2;
-            color: var(--primary-red); /* Main red for H1 */
-            margin: 0 auto;
-            letter-spacing: 0px; /* Adjusted from original theme */
-            animation: textFadeIn 1s ease 0.2s forwards; /* Adjusted from original theme */
-            opacity: 0;
-            max-width: 1200px;
-            text-shadow: 0 0 10px rgba(231, 76, 60, 0.5), 0 0 20px rgba(231, 76, 60, 0.3); /* Red shadow from original theme */
-        }
-
-        /* Main Content */
-        .kinky-container {
-            max-width: 1000px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-            /* animation: fadeIn 0.8s ease forwards; Keep section-based animation instead */
-        }
-
-        section { /* Added for consistency with original theme's section animations */
-            padding: 3rem 0; /* Reduced padding for content-heavy page */
-            animation: fadeIn 0.8s ease forwards;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        /* Remove individual animation from kinky-container if sections handle it */
-        .kinky-container.animated {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-
-        .kinky-intro {
-            display: flex;
-            align-items: center;
-            gap: 3rem;
-            margin-bottom: 1rem;
-            padding: 2rem; /* Added padding */
-            /* background: var(--background-tier); Optional: if you want a slight bg difference */
-            /* border-radius: 15px; */
-        }
-
-        .kinky-image {
-            flex: 0 0 300px; /* Keep existing size or adapt */
-            border-radius: 20px; /* From original theme */
-            overflow: hidden;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5); /* From original theme */
-            aspect-ratio: 3/4; /* from original theme */
-        }
-
-        .kinky-image img {
-            width: 100%;
-            height: 100%; /* for aspect ratio */
-            object-fit: cover; /* for aspect ratio */
-            display: block;
-            transition: transform 0.5s ease; /* from original theme */
-        }
-        .kinky-image:hover img {
-            transform: scale(1.05); /* from original theme */
-        }
-
-        .kinky-text {
-            flex: 1;
-            text-align: left; /* Default, can be center if preferred */
-        }
-        .kinky-text p {
-            font-size: 1.05em;
-        }
-
-
-        /* Kink Lists */
-        .kink-section {
-            margin-bottom: 3rem;
-            background: var(--background-tier); /* Subtle red sheen */
-            border: 1px solid var(--border-tier); /* Fainter red border */
-            border-radius: 15px;
-            padding: 2.5rem; /* Increased padding */
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2); /* Darker shadow */
-        }
-
-        .kink-categories {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Slightly wider */
-            gap: 2rem; /* Increased gap */
-            margin-top: 2rem;
-        }
-
-        .kink-category {
-            background: rgba(0,0,0,0.1); /* Darker, more subtle background */
-            border: 1px solid var(--border-tier);
-            padding: 1.5rem;
-            border-radius: 12px; /* Match tier style */
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .kink-category:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px var(--shadow-tier-hover); /* Red hover shadow */
-        }
-
-        .kink-category h3 {
-            color: var(--light-red-accent); /* Lighter red for H3 */
-            margin-bottom: 1rem;
-            font-size: 1.6rem; /* Playfair */
-            font-family: 'Playfair Display', serif;
-            border-bottom: 1px solid var(--border-tier);
-            padding-bottom: 0.75rem;
-        }
-
-        .kink-list {
-            list-style: none;
-            padding-left: 0; /* Remove default padding */
-        }
-
-        .kink-list li {
-            margin-bottom: 0.8rem; /* Increased margin */
-            padding-left: 2.5rem; /* Adjusted for new icon */
-            position: relative;
-            font-size: 1em; /* Adjusted */
-            color: var(--text-light);
-        }
-
-        .kink-list li::before {
-            content: "⚜"; /* Changed icon */
-            position: absolute;
-            left: 0;
-            top: -2px;
-            color: var(--primary-red); /* Main red for list icon */
-            font-size: 1.5em; /* Adjusted icon size */
-        }
-
-        .limits {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .limit-box {
-            padding: 2rem; /* Increased padding */
-            border-radius: 12px; /* Match tier style */
-            border: 1px solid var(--border-tier);
-            background: rgba(0,0,0,0.1); /* Consistent dark background */
-        }
-        .limit-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px var(--shadow-tier-hover);
-        }
-
-        .soft-limits {
-            /* Custom border or subtle bg if needed, e.g., border-left: 4px solid #D4AC0D; */
-        }
-
-        .hard-limits {
-             border-left: 4px solid var(--primary-red); /* Emphasize hard limits */
-        }
-
-        .limit-box h3 {
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            font-family: 'Playfair Display', serif;
-            color: var(--light-red-accent);
-            font-size: 1.6rem;
-        }
-        .limit-box h3::before { /* Emoji icons */
-            margin-right: 0.75rem;
-            font-size: 1.2em; /* Slightly larger emoji */
-        }
-
-        .soft-limits h3::before {
-            content: "⚠️";
-        }
-
-        .hard-limits h3::before {
-            content: "🚫";
-        }
-        .limit-box p, .limit-box .kink-list li {
-            color: #c0c0c0; /* Lighter text for these boxes */
-        }
-
-
-        .warning-box {
-            background: rgba(var(--primary-red-rgb, 231, 76, 60), 0.05); /* Use RGB for opacity on --primary-red */
-            border-left: 4px solid var(--primary-red);
-            padding: 2rem; /* Increased padding */
-            border-radius: 0 8px 8px 0;
-        }
-        .warning-box h3 {
-            font-family: 'Playfair Display', serif;
-            color: var(--light-red-accent);
-            font-size: 1.6rem;
-        }
-
-        /* Content Styling */
-        .highlight {
-            color: var(--primary-red); /* Main red for highlights */
-            font-weight: 600;
-            text-shadow: 0 0 5px rgba(231, 76, 60, 0.3); /* Red shadow */
-        }
-        p.emphasized { /* Copied from original theme for consistency */
-            font-size: 1.15em;
-            font-style: italic;
-            border-left: 4px solid var(--primary-red); /* Main red border */
-            padding-left: 1.5rem;
-            margin: 2rem 0;
-            color: #f0e0e0;
-        }
-
-
-        h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem; /* Matched from original theme */
-            margin-bottom: 2.5rem; /* Matched */
-            color: var(--text-heading-light);
-            font-weight: 700;
-            text-shadow: 0 0 8px rgba(0,0,0,0.3);
-        }
-
-        /* h3 is styled within .kink-category, .limit-box, .warning-box for specificity */
-
-        p {
-            margin-bottom: 1.2rem; /* Slightly more spacing */
-            color: var(--text-light);
-        }
-
-        /* Footer */
-        footer {
-            background: rgba(20, 20, 20, 0.9);
-            border-top: 1px solid var(--border-tier); /* Red-ish top border for footer */
-            padding: 3rem 0 2rem 0;
-            margin-top: 5rem; /* Matched */
-            text-align: center; /* Center align footer content */
-        }
-
-        .footer-nav { /* Style for the new footer navigation */
-            list-style: none;
-            padding: 0;
-            margin: 0 0 1.5rem 0; /* Add some margin below the nav */
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem; /* Adjust gap as needed */
-        }
-
-        .footer-nav li a {
-            color: var(--light-red-accent); /* Use a consistent link color */
-            text-decoration: none;
-            font-family: 'Playfair Display', serif;
-            font-size: 0.9em; /* Smaller font for footer */
-            transition: color 0.3s ease, opacity 0.3s ease, text-shadow 0.3s ease;
-            opacity: 0.7; /* Make it dimmer */
-        }
-
-        .footer-nav li a:hover {
-            color: var(--primary-red); /* Brighter RED on hover */
-            opacity: 1; /* Full opacity on hover */
-        }
-
-        .footer-nav li a.active {
-            color: var(--primary-red); /* Brighter RED for active link */
-            opacity: 1;
-            text-shadow: 0 0 6px var(--brightest-red-accent); /* Glow effect for active footer link */
-        }
-
-        .copyright {
-            text-align: center;
-            font-size: 0.85em; /* Matched */
-            color: #aaa;
-            padding-top: 2rem; /* Matched */
-            border-top: 1px solid rgba(255,255,255,0.08); /* Matched */
-            max-width: 1200px;
-            margin: 0 auto;
-            font-family: 'Lato', sans-serif; /* Matched */
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); } /* Matched */
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes textFadeIn { /* Matched */
-            to { opacity: 1; }
-        }
-
-        /* Hamburger Menu Icon */
-        .hamburger-menu {
-            display: none; 
-            cursor: pointer;
-            z-index: 1002;
-            align-self: center;
-        }
-
-        .hamburger-menu div {
-            width: 28px;
-            height: 3px;
-            background-color: var(--light-red-accent);
-            margin: 6px 0;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            border-radius: 1px;
-        }
-
-        .hamburger-menu.open div:nth-child(1) {
-            transform: rotate(-45deg) translate(-7px, 7px);
-        }
-
-        .hamburger-menu.open div:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger-menu.open div:nth-child(3) {
-            transform: rotate(45deg) translate(-6px, -7px);
-        }
-
-        /* Responsive Design - adapted from Kinks page and merged with Divine Sovereignty's breaks */
-        @media (max-width: 1024px) {
-            .dominant-statement h1 {
-                font-size: 3.5rem; /* Matched DS */
-            }
-            h2 { font-size: 2.5rem; } /* Matched DS */
-
-            .kinky-intro {
-                flex-direction: column;
-                gap: 2rem;
-            }
-            .kinky-image {
-                width: 70%; /* Matched DS */
-                max-width: 450px; /* Matched DS */
-                aspect-ratio: 1/1; /* Matched DS */
-                margin: 0 auto 2rem auto;
-            }
-            .limits {
-                grid-template-columns: 1fr;
-            }
-            .kink-categories {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-wrapper {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding-left: 1.5rem; 
-                padding-right: 1.5rem;
-            }
-
-            .nav-links {
-                position: absolute;
-                top: 100%; 
-                left: 0;
-                right: 0;
-                background: var(--background-nav); 
-                backdrop-filter: blur(12px); 
-                flex-direction: column;
-                align-items: center;
-                padding: 0; 
-                gap: 0; 
-                box-shadow: 0 8px 15px rgba(0,0,0,0.25);
-                max-height: 0; 
-                overflow: hidden;
-                transition: max-height 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), padding-top 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), padding-bottom 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-                z-index: 999; 
-            }
-            
-            .nav-links.menu-open {
-                max-height: 300px; 
-                padding-top: 1rem; 
-                padding-bottom: 1rem;
-            }
-
-            .nav-links li {
-                width: 100%;
-            }
-
-            .nav-links a {
-                padding: 0.8rem 1rem; 
-                width: 100%;
-                text-align: center;
-                border-bottom: 1px solid var(--border-tier); 
-            }
-            .nav-links li:last-child a {
-                border-bottom: none; 
-            }
-
-            .nav-links a::before { 
-                display: none; 
-            }
-            .nav-links a.active {
-                background-color: rgba(231, 76, 60, 0.1); 
-            }
-
-            .hamburger-menu {
-                display: block; 
-            }
-
-            .dominant-statement {
-                padding: 100px 1.5rem 30px; /* Matched DS */
-            }
-            .dominant-statement h1 {
-                font-size: 2.8rem; /* Matched DS */
-                line-height: 1.3;
-            }
-            h2 { font-size: 2.2rem; } /* Matched DS */
-            .kink-category h3, .limit-box h3, .warning-box h3 { font-size: 1.4rem; }
-
-
-            .footer-nav {
-                flex-direction: column;
-                align-items: center;
-                gap: 1rem; /* Matched DS */
-            }
-            footer {
-                padding: 2rem 0 1.5rem 0; /* Matched DS */
-            }
-        }
-
-        @media (max-width: 480px) {
-            body { line-height: 1.6; } /* Matched DS */
-            .dominant-statement h1 {
-                font-size: 2.2rem; /* Matched DS */
-            }
-            .kinky-container { padding: 0 1rem; }
-            .kink-section, .limit-box, .warning-box { padding: 1.5rem; }
-
-            h2 { font-size: 2rem; margin-bottom: 2rem; } /* Matched DS */
-            .kink-category h3, .limit-box h3, .warning-box h3 { font-size: 1.3rem; } /* Further reduce for small screens */
-            
-            .kink-list li { padding-left: 2rem; font-size: 0.95em; }
-            .kink-list li::before { font-size: 1.3em; }
-            .kink-categories { grid-template-columns: 1fr; }
-        }
-    </style>
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
     <nav>
@@ -567,160 +27,95 @@
     </nav>
 
     <div class="dominant-statement">
-        <h1>Kinky Confessions</h1>
+        <h1>KINKS & FETISHES</h1>
     </div>
 
-    <div class="kinky-container">
-        <div class="kinky-intro">
-            <div class="kinky-image">
-                <img src="https://picsum.photos/600/800?random=9" alt="Mistress Mango in lingerie with spiked paddle">
+    <section id="favorites">
+        <div class="section-content">
+            <div class="image-container">
+                <img src="https://picsum.photos/600/800?random=9" alt="Favorite kinks">
             </div>
-            <div class="kinky-text">
-                <h2>Mistress Mango's Playground</h2> <p>Dressed in alluring lingerie, My spiked paddle at-the-ready, I await those worthy of exploring My vast and varied interests.</p>
-                <p>Below you'll find a comprehensive list of My kinks and limits. Study them carefully, as this knowledge is essential for anyone seeking to serve Me.</p>
-                <p class="emphasized">Remember: My desires take precedence in all sessions.</p> </div>
+            <div class="text-content">
+                <h2>💋 My Favorites</h2>
+                <p class="emphasized">These are the activities that bring Me genuine pleasure and that I excel at delivering.</p>
+                
+                <ul>
+                    <li><span class="highlight">FinDom / Cash Drains</span></li>
+                    <li>Foot Worship & Foot Denial</li>
+                    <li>Humiliation (bratty, cruel, mocking)</li>
+                    <li>CBT / Ballbusting</li>
+                    <li>JOI / Edging / Orgasm Control</li>
+                    <li>Trampling</li>
+                    <li>Impact Play</li>
+                    <li>Objectification</li>
+                    <li>Chastity</li>
+                    <li>Roleplay (Therapist, Villainess, Brat, Ice Queen)</li>
+                </ul>
+
+                <p class="emphasized">I approach each of these with natural sadistic pleasure. Your suffering is My entertainment.</p>
+            </div>
         </div>
+    </section>
 
-        <section id="boundaries">
-            <div class="warning-box">
-                <h3>Boundary Declaration</h3>
-                <p>My boundaries are <span class="highlight">firm</span>, and I will only partake in pre-agreed kinks. Any unsolicited attempt to push beyond these limits will result in an immediate end to our session and/or blocking.</p>
-                <p><strong>Consent is paramount</strong>, and respect for My boundaries is non-negotiable. Attempts to circumvent these limits demonstrate you are unworthy of My attention.</p>
-                <p class="highlight">All sessions require explicit negotiation and agreement beforehand.</p>
+    <section id="limits">
+        <div class="section-content">
+            <div class="image-container">
+                <img src="https://picsum.photos/600/800?random=10" alt="Hard boundaries">
             </div>
-        </section>
-
-        <section id="interests">
-            <div class="kink-section">
-                <h2>My Interests</h2>
-                <p>These are the activities that bring Me pleasure and that I enjoy incorporating into sessions with devoted submissives:</p>
+            <div class="text-content">
+                <h2>🚫 My Hard Limits</h2>
+                <p class="emphasized">These boundaries are non-negotiable. Respect them or lose access permanently.</p>
                 
-                <div class="kink-categories">
-                    <div class="kink-category">
-                        <h3>Financial Domination</h3>
-                        <ul class="kink-list">
-                            <li>Financial Domination</li>
-                            <li>Financial Cuckolding</li>
-                            <li>Chastity Key Holding</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="kink-category">
-                        <h3>Physical Domination</h3>
-                        <ul class="kink-list">
-                            <li>Impact Play</li>
-                            <li>Beatdowns</li>
-                            <li>Trampling</li>
-                            <li>Biting</li>
-                            <li>Spit</li>
-                            <li>Electro Play</li>
-                            <li>Wax Play</li>
-                            <li>Fire Play</li>
-                        </ul>
-                    </div>
+                <ul>
+                    <li><strong>No sex or nudity</strong></li>
+                    <li><strong>No full body worship</strong></li>
+                    <li><strong>No unsafe play</strong></li>
+                    <li><strong>No medical or nurse roleplay</strong></li>
+                </ul>
 
-                    <div class="kink-category">
-                        <h3>Humiliation</h3>
-                        <ul class="kink-list">
-                            <li>SPH</li>
-                            <li>CEI</li>
-                            <li>Humiliation</li>
-                            <li>Feminization</li>
-                            <li>Ignore</li>
+                <div style="background: var(--background-tier); border-left: 4px solid var(--primary-red); padding: 1.5rem; margin: 2rem 0; border-radius: 8px; font-style: italic; color: var(--text-heading-light); text-align: center; font-size: 1.1em;">
+                    "I am a Professional Dominatrix, not a sex worker. Learn the difference."
+                </div>
+
+                <p class="emphasized">Any attempt to push these boundaries will result in immediate blocking and forfeiture of all tributes.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="approach">
+        <div class="section-content">
+            <div class="image-container">
+                <img src="https://picsum.photos/600/800?random=11" alt="How to approach">
+            </div>
+            <div class="text-content">
+                <h2>How to Approach Me About Kinks</h2>
+                <p>Want to explore one of My favorite activities? Here's how to do it right:</p>
+                
+                <div class="worship-details">
+                    <div>
+                        <h3>✅ Do This:</h3>
+                        <ul>
+                            <li>Send tribute first</li>
+                            <li>Be specific about your interest</li>
+                            <li>Ask permission, don't demand</li>
+                            <li>Accept My terms completely</li>
                         </ul>
                     </div>
-
-                    <div class="kink-category">
-                        <h3>Sensory Play</h3>
-                        <ul class="kink-list">
-                            <li>Sensory Deprivation</li>
-                            <li>Mummification</li>
-                            <li>Latex</li>
-                            <li>Food Play</li>
-                            <li>Tickling</li>
-                        </ul>
-                    </div>
-
-                    <div class="kink-category">
-                        <h3>Service & Worship</h3>
-                        <ul class="kink-list">
-                            <li>Human Furniture</li>
-                            <li>Body Worship</li>
-                            <li>Boot Licking</li>
-                            <li>Face Sitting</li>
-                            <li>Golden Showers</li>
-                            <li>Human Ashtray</li>
-                        </ul>
-                    </div>
-
-                    <div class="kink-category">
-                        <h3>Control & Restriction</h3>
-                        <ul class="kink-list">
-                            <li>Light Bondage</li>
-                            <li>Tease and Denial</li>
-                            <li>JOI</li>
-                            <li>Breath Play</li>
-                            <li>TPE</li>
-                        </ul>
-                    </div>
-
-                    <div class="kink-category">
-                        <h3>Role Play</h3>
-                        <ul class="kink-list">
-                            <li>Pet Play</li>
-                            <li>ABDL</li>
-                            <li>Double/Multi Domme</li>
-                        </ul>
-                    </div>
-
-                    <div class="kink-category">
-                        <h3>Penetration</h3>
-                        <ul class="kink-list">
-                            <li>Strap On/Pegging</li>
-                            <li>Throat Training</li>
-                            <li>Sensual Domination</li>
+                    <div>
+                        <h3>❌ Don't Do This:</h3>
+                        <ul>
+                            <li>Ask for freebies or "samples"</li>
+                            <li>Negotiate My boundaries</li>
+                            <li>Send unsolicited kink details</li>
+                            <li>Assume I'll cater to your fetish</li>
                         </ul>
                     </div>
                 </div>
+
+                <p class="emphasized">Remember: I indulge in kinks because <em>I</em> enjoy them. Your pleasure is secondary to Mine.</p>
             </div>
-        </section>
-
-        <section id="limits">
-            <div class="kink-section">
-                <h2>My Limits</h2>
-                <p>While My interests are vast, there are boundaries I maintain for My comfort and safety:</p>
-                
-                <div class="limits">
-                    <div class="limit-box soft-limits">
-                        <h3>Soft Limits</h3>
-                        <p>These are activities I may consider under very specific circumstances with proven devotees:</p>
-                        <ul class="kink-list">
-                            <li>Toilet Training</li>
-                            <li>Race Play</li>
-                        </ul>
-                    </div>
-
-                    <div class="limit-box hard-limits">
-                        <h3>Hard Limits</h3>
-                        <p>These activities are absolutely off-limits under any circumstances:</p>
-                        <ul class="kink-list">
-                            <li>Blood</li>
-                            <li>Blackmail</li>
-                            <li>Nudity</li>
-                            <li>Full Service</li>
-                            <li>Oral Servitude</li>
-                            <li>Involving Unconsenting/Underage Parties</li>
-                            <li>Beastiality</li>
-                            <li>Permanent Injury</li>
-                            <li>Sounding</li>
-                            <li>Castration</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </div>
+        </div>
+    </section>
 
     <footer>
     <ul class="footer-nav">
